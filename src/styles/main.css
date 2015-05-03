@@ -1,41 +1,71 @@
-/* Stiziles */
-
-html, body {
-  background: #222222;
+body {
+    margin:0;
+    padding:0;
+    border:0;
+    width:100%;
+    background:#fff;
+    min-width:600px;
+    font-size:90%;
+}
+a {
+    color:#369;
+}
+a:hover {
+    color:#fff;
+    background:#369;
+    text-decoration:none;
+}
+h1, h2, h3 {
+    margin:.8em 0 .2em 0;
+    padding:0;
+}
+p {
+    margin:.4em 0 .8em 0;
+    padding:0;
+}
+img {
+    margin:10px 0 5px;
+}
+#ads img {
+    display:block;
+    padding-top:10px;
 }
 
-/* main */
-
-.main {
-  width: 100%;
-  height: 100%;
-  background: #222222;
-  color: #fff;
+.colmask {
+    position:relative;
+    clear:both;
+    float:left;
+    width:100%;
+    overflow:hidden;
+}
+.colright,
+.colmid,
+.colleft {
+    float:left;
+    width:100%;
+    position:relative;
+}
+.col1,
+.col2,
+.col3 {
+    float:left;
+    position:relative;
+    padding:0 0 1em 0;
+    overflow:hidden;
+}
+.leftmenu {
+    background:#fff;
+}
+.leftmenu .colleft {
+    right:75%;
+    background:#f4f4f4;
+}
+.leftmenu .col1 {
+    width:71%;
+    left:102%;
+}
+.leftmenu .col2 {
+    width:21%;
+    left:6%;
 }
 
-.main img {
-  width: 103px;
-  height: 89px;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-/* transitions */
-
-.fade-enter {
-  opacity: 0.01;
-  transition: opacity .5s ease-in;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-}
-
-.fade-leave {
-  opacity: 1;
-  transition: opacity .5s ease-in;
-}
-
-.fade-leave.fade-leave-active {
-  opacity: 0.01;
-}

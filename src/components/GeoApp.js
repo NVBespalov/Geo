@@ -7,18 +7,23 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 require('normalize.css');
 require('../styles/main.css');
 
-var imageURL = require('../images/yeoman.png');
-
 var GeoApp = React.createClass({
-  render: function() {
-    return (
-      <div className='main'>
-        <ReactTransitionGroup transitionName="fade">
-          <img src={imageURL} />
-        </ReactTransitionGroup>
-      </div>
-    );
-  }
+    render: function () {
+        return (
+
+            <div className="colmask leftmenu">
+                <div className="colleft">
+                    <div className="col1">
+
+                    </div>
+                    <div className="col2">
+
+                    </div>
+                </div>
+            </div>
+
+        );
+    }
 });
 
 module.exports = GeoApp;
