@@ -6,6 +6,7 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 // CSS
 require('normalize.css');
 require('../styles/main.css');
+var GeoList = require('components/GeoList');
 
 var GeoApp = React.createClass({
     render: function () {
@@ -16,9 +17,7 @@ var GeoApp = React.createClass({
                     <div className="col1">
 
                     </div>
-                    <div className="col2">
-
-                    </div>
+                    <GeoList />
                 </div>
             </div>
 
