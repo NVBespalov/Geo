@@ -7,16 +7,14 @@ var ReactTransitionGroup = React.addons.TransitionGroup;
 require('normalize.css');
 require('../styles/main.css');
 var GeoList = require('components/GeoList');
-
+var GeoDetails = require('components/GeoDetails');
 var GeoApp = React.createClass({
     render: function () {
         return (
 
             <div className="colmask leftmenu">
                 <div className="colleft">
-                    <div className="col1">
-
-                    </div>
+                    <GeoDetails />
                     <GeoList />
                 </div>
             </div>
