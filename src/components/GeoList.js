@@ -6,7 +6,7 @@ require('styles/GeoList.less');
 var Tabs = require('react-simpletabs');
 var TreeView = require('react-treeview');
 var GeoList = React.createClass({
-    
+
     render: function () {
         return (
             <div className="col2">
