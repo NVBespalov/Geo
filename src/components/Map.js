@@ -51,8 +51,6 @@ class Map extends React.Component {
         const {props, state} = this,
             {googleMapsApi, otherProps} = props;
 
-
-
         return (
             <GoogleMaps containerProps={{otherProps,style: {height: "100%",width: "100%"}}}
                         ref="map"

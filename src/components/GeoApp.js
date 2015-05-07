@@ -3,22 +3,20 @@
 var React = require('react/addons');
 var ReactTransitionGroup = React.addons.TransitionGroup;
 
-// CSS
 require('normalize.css');
 require('../styles/main.css');
+
 var GeoList = require('components/GeoList');
 var GeoDetails = require('components/GeoDetails');
 var GeoApp = React.createClass({
     render: function () {
         return (
+        <div id="wrap">
+            <h1> Картографический сервис </h1>
+            <GeoList categories={[]}/>
+            <GeoDetails />
 
-            <div className="colmask leftmenu">
-                <div className="colleft">
-                    <GeoDetails />
-                    <GeoList />
-                </div>
-            </div>
-
+        </div>
         );
     }
 });

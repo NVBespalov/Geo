@@ -4,20 +4,30 @@ import React from "react/addons";
 var MapComponent = require('components/Map');
 
 require('styles/GeoDetails.less');
-var Tabs = require('react-simpletabs');
+
 var GeoDetails = React.createClass({
     render: function () {
         return (
-            <div className="col1">
-                <Tabs>
-                    <Tabs.Panel title='Карта'>
-                        <MapComponent />
-                    </Tabs.Panel>
-                    <Tabs.Panel title='Список'>
-                        <h2>Content #2 here</h2>
-                    </Tabs.Panel>
+            <div className="right_col">
+                <div className="tabs">
+                    <div className="tab">
+                        <input type="radio" id="tab-map" name="tab-group-2" defaultChecked/>
+                        <label htmlFor="tab-map">Карта</label>
 
-                </Tabs>
+                        <div className="content">
+                            <MapComponent />
+                        </div>
+                    </div>
+                    <div className="tab">
+                        <input type="radio" id="tab-list" name="tab-group-2" />
+                        <label htmlFor="tab-list">Список</label>
+
+                        <div className="content">
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
