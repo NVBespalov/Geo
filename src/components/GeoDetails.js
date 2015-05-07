@@ -1,7 +1,7 @@
 'use strict';
 
 import React from "react/addons";
-var Map = require('components/Map');
+var MapComponent = require('components/Map');
 
 require('styles/GeoDetails.less');
 var Tabs = require('react-simpletabs');
@@ -11,7 +11,7 @@ var GeoDetails = React.createClass({
             <div className="col1">
                 <Tabs>
                     <Tabs.Panel title='Карта'>
-                        <Map />
+                        <MapComponent />
                     </Tabs.Panel>
                     <Tabs.Panel title='Список'>
                         <h2>Content #2 here</h2>
