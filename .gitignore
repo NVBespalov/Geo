@@ -31,3 +31,16 @@ node_modules/
 .tmp
 dist
 /src/main.js
+.idea/.name
+.idea/Geo.iml
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/typescript-compiler.xml
+.idea/vcs.xml
+.idea/watcherTasks.xml
+.idea/workspace.xml
+.idea/dictionaries/nickbespalov.xml
+.idea/libraries/compass_library.xml
+.idea/libraries/Geo_node_modules.xml
+.idea/libraries/Node_Local.xml
