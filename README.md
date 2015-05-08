@@ -1,6 +1,3 @@
-
-
-
 Run `grunt build` for building and `grunt serve` for preview in the browser at [localhost](http://localhost:8000).
 
 ## Generators
