@@ -35,7 +35,8 @@ module.exports = {
             'components': __dirname + '/src/components/',
             'stores': __dirname + '/src/stores/',
             'actions': __dirname + '/src/actions/',
-            'constants': __dirname + '/src/constants/'
+            'constants': __dirname + '/src/constants/',
+            'dispatcher': __dirname + '/src/dispatcher/'
         }
     },
     module: {
