@@ -1,20 +1,5 @@
 
-## Usage
 
-Install `generator-react-webpack`:
-```
-npm install -g generator-react-webpack
-```
-
-Make a new directory, and `cd` into it:
-```
-mkdir my-new-project && cd $_
-```
-
-Run `yo react-webpack`, optionally passing an app name:
-```
-yo react-webpack [app-name]
-```
 
 Run `grunt build` for building and `grunt serve` for preview in the browser at [localhost](http://localhost:8000).
 
@@ -29,20 +14,6 @@ and for **Flux** or **Reflux** :
 * [react-webpack:action](#action)
 * [react-webpack:store](#store)
 
-
-### App
-
-Sets up a new ReactJS app, generating all the boilerplate you need to get started. The app generator also facilitates the following:
-
-1. Configures a Gruntfile to run the app on a local server.
-2. Configures Webpack to modularise the app enabling [loading of various file formats](http://webpack.github.io/docs/loader-list.html) e.g. JSON, CSS, PNG, etc.
-3. Configures [Karma](http://karma-runner.github.io) to run all tests.
-4. Watches for changes and recompiles JS and refreshes the browser.
-
-Example:
-```bash
-yo react-webpack
-```
 
 ### Component
 
