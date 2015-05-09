@@ -3,10 +3,11 @@
 import React from "react/addons";
 var MapComponent = require('components/Map');
 var Modal = require('components/Modal');
-
+var CategoriesAction = require('actions/CategoriesActionCreators');
 require('styles/GeoDetails.less');
 
 var GeoDetails = React.createClass({
+
     /**
      * Click handler for new category prompt
      * @param event
@@ -22,7 +23,6 @@ var GeoDetails = React.createClass({
     render: function () {
         return (
             <div className="right_col">
-                <a onClick={this.handlePromptNewCategory} href="#">Новая категория</a>
                 <div className="tabs">
                     <div className="tab">
                         <input type="radio" id="tab-map" name="tab-group-2" defaultChecked/>
@@ -37,7 +37,10 @@ var GeoDetails = React.createClass({
                         <label htmlFor="tab-list">Список</label>
 
                         <div className="content">
-
+                            <p className="categoriesListControls">
+                                <a onClick={this.handlePromptNewCategory} href="#" >Новая категория</a>
+                                <a href="#" >Новый объект</a>
+                            </p>
 
                         </div>
                     </div>
@@ -53,10 +56,10 @@ var GeoDetails = React.createClass({
                     <form id="newCategoryForm">
                         <p className="categoryName">
                             <b className="label">Имя:</b>
-                            <input type="text" />
+                            <input type="text" ref="newCategoryName" />
                         </p>
                         <p className="controls">
-                            <input type="button" value="Создать категорию" />
+                            <input type="button" value="Создать категорию" onClick={this.onAddNewCategoryPrompt}/>
                             <input type="button" value="Отмена" onClick={this.onCancelNewCategory} />
                         </p>
                     </form>
