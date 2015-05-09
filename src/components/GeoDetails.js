@@ -17,6 +17,10 @@ var GeoDetails = React.createClass({
         this.refs.addCategoryModalForm.show();
         event.preventDefault();
     },
+    /**
+     * Add new category form cancel button handler
+     * @param event
+     */
     onCancelNewCategory: function (event) {
         this.refs.addCategoryModalForm.hide();
         event.preventDefault();
