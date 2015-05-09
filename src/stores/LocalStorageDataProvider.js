@@ -1,7 +1,10 @@
 /**
  * Created by nickbespalov on 08.05.15.
  */
+'use strict';
+
 var LocalStorageDataProvider = {
+
     /**
      * Write data into local storage.
      * If browser does not have it nothing happens.
@@ -13,6 +16,7 @@ var LocalStorageDataProvider = {
             localStorage.setItem(key, JSON.stringify(value));
         }
     },
+
     /**
      * Read data from the local storage.
      * If there is no local storage returns undefined.
@@ -23,7 +27,17 @@ var LocalStorageDataProvider = {
         if (typeof localStorage === 'object') {
             return JSON.parse(localStorage.getItem(key));
         }
+    },
+
+    /**
+     * Create a category item.
+     * @param  {string} collectionKey The name of the new collection
+     */
+    createCollection: function (collectionKey) {
+        this.write(collectionKey, {});
+
     }
+
 };
 
 module.exports = LocalStorageDataProvider;
