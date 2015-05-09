@@ -18,7 +18,8 @@
     "react": "^0.13.2",
     "react-google-maps": "^1.1.2",
     "react-router": "latest",
-    "react-treeview": "^0.3.11"
+    "react-treeview": "^0.3.11",
+    "reactable": "^0.10.1"
   },
   "devDependencies": {
     "grunt": "~0.4.5",

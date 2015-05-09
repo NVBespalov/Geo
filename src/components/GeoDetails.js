@@ -4,6 +4,7 @@ import React from "react/addons";
 var MapComponent = require('components/Map');
 var Modal = require('components/Modal');
 var CategoriesAction = require('actions/CategoriesActionCreators');
+var GeoListTable = require('reactable').Table;
 require('styles/GeoDetails.less');
 
 var GeoDetails = React.createClass({
@@ -51,6 +52,10 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.handlePromptNewCategory} href="#" >Новая категория</a>
                                 <a href="#" >Новый объект</a>
                             </p>
+
+                            <GeoListTable className="geoTable" data={[
+
+                            ]} />
 
                         </div>
                     </div>

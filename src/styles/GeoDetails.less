@@ -2,24 +2,144 @@
     width: 95%;
     height: 100%;
 }
+
 #newCategoryForm .categoryName .label {
     margin: 0 10px 0 0;
 }
+
 #newCategoryForm .categoryName input[type="text"] {
     width: 91.7%;
 }
+
 #newCategoryForm .controls {
     text-align: right;
 }
+
 #newCategoryForm input[type="button"] {
     height: 35px;
 }
+
 #newCategoryForm .controls &:first-child {
     margin: 0 5px 0 0;
 }
+
 .categoriesListControls {
     text-align: right;
 }
+
 .categoriesListControls &:first-child {
     margin: 0 5px 0 0;
+}
+
+.geoTable {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border: 1px solid #000000;
+
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+}
+
+.geoTable table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.geoTable tr:last-child td:last-child {
+    -moz-border-radius-bottomright: 0;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.geoTable table tr:first-child td:first-child {
+    -moz-border-radius-topleft: 0;
+    -webkit-border-top-left-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.geoTable table tr:first-child td:last-child {
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.geoTable tr:last-child td:first-child {
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-bottom-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.geoTable tr:hover td {
+
+}
+
+.geoTable tr:nth-child(odd) {
+    background-color: #e5e5e5;
+}
+
+.geoTable tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.geoTable td {
+    vertical-align: middle;
+    border: 1px solid #000000;
+    border-width: 0 1px 1px 0;
+    text-align: left;
+    padding: 7px;
+    font-size: 10px;
+    font-family: Arial, serif;
+    font-weight: normal;
+    color: #000000;
+}
+
+.geoTable tr:last-child td {
+    border-width: 0 1px 0 0;
+}
+
+.geoTable tr td:last-child {
+    border-width: 0 0 1px 0;
+}
+
+.geoTable tr:last-child td:last-child {
+    border-width: 0;
+}
+
+.geoTable th {
+    background: -o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2));
+    background: -moz-linear-gradient(center top, #cccccc 5%, #b2b2b2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");
+    background: -o-linear-gradient(top, #cccccc, b2b2b2);
+    background-color: #cccccc;
+    border: 0px solid #000000;
+    text-align: center;
+    border-width: 0 0 1px 1px;
+    font-size: 14px;
+    font-family: Arial, serif;
+    font-weight: bold;
+    color: #000000;
+}
+
+.geoTable th {
+    background: -o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2));
+    background: -moz-linear-gradient(center top, #cccccc 5%, #b2b2b2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");
+    background: -o-linear-gradient(top, #cccccc, b2b2b2);
+    background-color: #cccccc;
+}
+
+.geoTable th {
+    border-width: 0 0 1px 0;
+}
+
+.geoTable th {
+    border-width: 0 0 1px 1px;
 }
