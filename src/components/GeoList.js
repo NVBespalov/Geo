@@ -19,7 +19,7 @@ var GeoList = React.createClass({
                         <label htmlFor="tab-categories">Категории</label>
 
                         <div className="content">
-                            {this.props.categories.map(function (node, i) {
+                            {[].map(function (node, i) {
                                 var label = <span className="node" > Type {i} </span>;
                                 return (
                                     <TreeView key={i} nodeLabel={label}>
