@@ -4,6 +4,7 @@ import React from "react/addons";
 var MapComponent = require('components/Map');
 var Modal = require('components/Modal');
 var CategoriesAction = require('actions/CategoriesActionCreators');
+var GeoObjectsAction = require('actions/GeoObjectActionCreators');
 var GeoListTable = require('reactable').Table;
 require('styles/GeoDetails.less');
 
@@ -17,6 +18,7 @@ var GeoDetails = React.createClass({
         this.refs.addCategoryModalForm.show();
         event.preventDefault();
     },
+
     /**
      * Add new category form cancel button handler
      * @param event
@@ -25,6 +27,7 @@ var GeoDetails = React.createClass({
         this.refs.addCategoryModalForm.hide();
         event.preventDefault();
     },
+
     /**
      * Create new category with raw data
      * @param event
@@ -35,6 +38,38 @@ var GeoDetails = React.createClass({
         });
         event.preventDefault();
     },
+
+    /**
+     * Click handler for new geo object
+     * @param event
+     */
+    showGeoObjectFormObject: function (event) {
+        CategoriesAction.addOneCategory({
+            name: this.refs.addGeoObjectModalForm.show()
+        });
+        event.preventDefault();
+    },
+
+    /**
+     * Create new geo object with raw data
+     * @param event
+     */
+    onAddNewGeoObjectPrompt: function (event) {
+        GeoObjectsAction.addOneObject({
+        });
+        event.preventDefault();
+    },
+
+
+    /**
+     * Add new geo object form cancel button handler
+     * @param event
+     */
+    onCancelNewGeoObject: function (event) {
+        this.refs.addGeoObjectModalForm.hide();
+        event.preventDefault();
+    },
+
     render: function () {
         return (
             <div className="right_col">
@@ -54,7 +89,7 @@ var GeoDetails = React.createClass({
                         <div className="content">
                             <p className="categoriesListControls">
                                 <a onClick={this.handlePromptNewCategory} href="#" >Новая категория</a>
-                                <a href="#" >Новый объект</a>
+                                <a onClick={this.showGeoObjectFormObject} href="#" >Новый объект</a>
                             </p>
 
                             <GeoListTable className="geoTable" data={[
@@ -63,6 +98,7 @@ var GeoDetails = React.createClass({
 
                         </div>
                     </div>
+
                 </div>
                 <Modal
                     visible={false}
@@ -80,6 +116,37 @@ var GeoDetails = React.createClass({
                         <p className="controls">
                             <input type="button" value="Создать категорию" onClick={this.onAddNewCategoryPrompt}/>
                             <input type="button" value="Отмена" onClick={this.onCancelNewCategory} />
+                        </p>
+                    </form>
+                </Modal>
+                <Modal
+                    visible={false}
+                    closable={true}
+                    ref="addGeoObjectModalForm">
+                    <header>
+                        <h1>Новый объект</h1>
+                    </header>
+
+                    <form id="newGeoObjectForm">
+                        <p>
+                            <b className="label">Имя</b>
+                            <input type="text" ref="geoObjectName" />
+                        </p>
+                        <p>
+                            <b className="label">Адрес</b>
+                            <input type="text" ref="geoObjectAddress" />
+                        </p>
+                        <p>
+                            <b className="label">Широта</b>
+                            <input type="text" ref="geoObjectLatitude" />
+                        </p>
+                        <p>
+                            <b className="label">Долгота</b>
+                            <input type="text" ref="geoObjectLongitude" />
+                        </p>
+                        <p className="controls">
+                            <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
+                            <input type="button" value="Отмена" onClick={this.onCancelNewGeoObject} />
                         </p>
                     </form>
                 </Modal>
