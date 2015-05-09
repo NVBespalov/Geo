@@ -20,6 +20,16 @@ var GeoDetails = React.createClass({
         this.refs.addCategoryModalForm.hide();
         event.preventDefault();
     },
+    /**
+     * Create new category with raw data
+     * @param event
+     */
+    onAddNewCategoryPrompt: function (event) {
+        CategoriesAction.addOneCategory({
+            name: this.refs.newCategoryName.getDOMNode().value
+        });
+        event.preventDefault();
+    },
     render: function () {
         return (
             <div className="right_col">
