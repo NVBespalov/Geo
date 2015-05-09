@@ -30,7 +30,7 @@ var LocalStorageDataProvider = {
     },
 
     /**
-     * Create a category item.
+     * Create new collection.
      * @param  {string} collectionKey The name of the new collection
      */
     createCollection: function (collectionKey) {
