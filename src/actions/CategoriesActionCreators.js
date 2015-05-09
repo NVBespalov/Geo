@@ -1,7 +1,7 @@
 'use strict';
 
 var GeoAppDispatcher = require('../dispatcher/GeoAppDispatcher');
-var CategoriesActionsConstants = require('../constants/CategoriesActions');
+var GeoAppActionsConstants = require('../constants/GeoAppActions');
 var CategoriesActionCreators = {
     /**
      * Add one category with raw data
@@ -9,7 +9,7 @@ var CategoriesActionCreators = {
      */
     addOneCategory: function (categoryRawData) {
         GeoAppDispatcher.dispatch({
-            actionType: CategoriesActionsConstants.CATEGORY_CREATE,
+            actionType: GeoAppActionsConstants.CATEGORY_CREATE,
             rawData: categoryRawData
         });
     }
