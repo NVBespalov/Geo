@@ -57,7 +57,7 @@ var GeoDetails = React.createClass({
     onAddNewGeoObjectPrompt: function (event) {
         GeoObjectsAction.addOneObject({
             name: this.refs.newGeoObjectName.getDOMNode().value,
-            addres: this.refs.newGeoObjectAddress.getDOMNode().value,
+            address: this.refs.newGeoObjectAddress.getDOMNode().value,
             latitude: this.refs.newGeoObjectLatitude.getDOMNode().value,
             longitude: this.refs.newGeoObjectLongitude.getDOMNode().value,
             category: this.refs.newGeoObjectCategory.getDOMNode().value
@@ -76,9 +76,9 @@ var GeoDetails = React.createClass({
     },
 
     render: function () {
-        var categoriesOptions = [<option defaultSelected value="empty">Без категории</option>];
-        _.each(this.props.categories, function (value) {
-            categoriesOptions.push( <option value={value}>{value}</option>)
+        var categoriesOptions = [<option key="000" defaultSelected value="empty">Без категории</option>];
+        _.each(this.props.categories, function (value, key) {
+            categoriesOptions.push( <option key={key} value={value}>{value}</option>)
         });
         return (
             <div className="right_col">
@@ -101,7 +101,9 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
-                            <GeoListTable className="geoTable" data={this.props.geoObjects}/>
+                            <GeoListTable className="geoTable"
+                                          columns={[{key:"name", label:"Имя"},{key:"address", label:"Адрес"},{key:"latitude", label:"Широта"},{key:"longitude", label:"Долгота"},{key:"category", label:"Категория"}]}
+                                          data={this.props.geoObjects}/>
 
                         </div>
                     </div>
@@ -110,14 +112,14 @@ var GeoDetails = React.createClass({
                     <header>
                         <h1>Новая категория</h1>
                     </header>
-                    <table border="0" cellspacing="5" cellpadding="5">
+                    <table border="0" cellSpacing="5" cellPadding="5">
                         <form className="modalForm">
                             <tr className="spaceUnder">
                                 <td align="right" valign="top">Имя</td>
                                 <td><input type="text" name="name" size="25" ref="newCategoryName"/></td>
                             </tr>
                             <tr>
-                                <td align="right" colspan="2">
+                                <td align="right" colSpan="2">
                                     <input type="button" value="Создать категорию" onClick={this.onAddNewCategoryPrompt}/>
                                     <input type="button" value="Отмена" onClick={this.onCancelNewCategory}/>
                                 </td>
@@ -132,7 +134,7 @@ var GeoDetails = React.createClass({
                     </header>
                     <form name="newGeoObject">
 
-                        <table border="0" cellspacing="5" cellpadding="5">
+                        <table border="0" cellSpacing="5" cellPadding="5">
 
                             <tr className="spaceUnder">
                                 <td align="right" valign="top">Имя</td>
@@ -176,7 +178,7 @@ var GeoDetails = React.createClass({
                             </tr>
 
                             <tr>
-                                <td align="right" colspan="2">
+                                <td align="right" colSpan="2">
                                     <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
                                     <input type="button" value="Отмена" onClick={this.onCancelNewGeoObject} />
                                 </td>
