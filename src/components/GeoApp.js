@@ -12,8 +12,8 @@ require('../styles/main.css');
  */
 function getGeoState() {
     return {
-        allCategories: CategoriesStore.getAllCategories() || {},
-        allGeoObjects: GeoObjectsStore.getAllGeoObjects() || {}
+        allCategories: CategoriesStore.getAllCategories() || [],
+        allGeoObjects: GeoObjectsStore.getAllGeoObjects() || []
     };
 }
 
