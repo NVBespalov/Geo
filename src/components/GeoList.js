@@ -40,7 +40,7 @@ var GeoList = React.createClass({
                                     <TreeView key={type + '|' + index} nodeLabel={label} defaultCollapsed={false}>
                                         {node.geoObjects.map(function(geoObject) {
                                             return (
-                                                <a className="node" href="#">{geoObject.name}</a>
+                                                <a key={type + '|' + index} className="node" href="#">{geoObject.name}</a>
                                             );
                                         })}
                                     </TreeView>
