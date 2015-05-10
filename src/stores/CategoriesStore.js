@@ -7,7 +7,10 @@ var GeoAppActionsConstants = require('../constants/GeoAppActions');
 var LocalStoreDataProvider = require('stores/LocalStorageDataProvider');
 
 var CategoriesStore = assign({}, AbstractStore, {
-
+    /**
+     * Get all categories from store
+     * @returns {*}
+     */
     getAllCategories: function () {
         return LocalStoreDataProvider.read(GeoAppActionsConstants.CATEGORIES_COLLECTION);
     }
