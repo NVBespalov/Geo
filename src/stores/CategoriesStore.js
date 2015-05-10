@@ -20,7 +20,7 @@ var CategoriesStore = assign({}, AbstractStore, {
 GeoAppDispatcher.register(function (action) {
     switch (action.actionType) {
         case GeoAppActionsConstants.CATEGORY_CREATE:
-            LocalStoreDataProvider.addCollectionItem(GeoAppActionsConstants.CATEGORIES_COLLECTION, action.rawData.name, action.rawData);
+            LocalStoreDataProvider.addCollectionItem(GeoAppActionsConstants.CATEGORIES_COLLECTION, action.rawData);
             CategoriesStore.emitChange();
             break;
         default:
