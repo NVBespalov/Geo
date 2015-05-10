@@ -2,6 +2,8 @@
 
 var React = require('react/addons');
 var CategoriesStore = require('stores/CategoriesStore');
+var GeoObjectsStore = require('stores/GeoObjectsStore');
+
 require('normalize.css');
 require('../styles/main.css');
 
@@ -10,7 +12,8 @@ require('../styles/main.css');
  */
 function getGeoState() {
     return {
-        allCategories: CategoriesStore.getAllCategories() || {}
+        allCategories: CategoriesStore.getAllCategories() || {},
+        allGeoObjects: GeoObjectsStore.getAllGeoObjects() || {}
     };
 }
 
@@ -22,18 +25,19 @@ var GeoApp = React.createClass({
     },
     componentDidMount: function() {
         CategoriesStore.addChangeListener(this._onChange);
+        GeoObjectsStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         CategoriesStore.removeChangeListener(this._onChange);
+        GeoObjectsStore.removeChangeListener(this._onChange);
     },
     render: function () {
         return (
         <div id="wrap">
             <h1> Картографический сервис </h1>
-            <GeoList />
-            <GeoDetails categories={this.state.allCategories}/>
-
+            <GeoList categories={this.state.allCategories} />
+            <GeoDetails categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
         </div>
         );
     },
