@@ -2,11 +2,44 @@
 
 var React = require('react/addons');
 var TreeView = require('react-treeview');
-
+var _ = require('underscore');
+var dataSource = [
+    {
+        type: 'Employees',
+        collapsed: false,
+        people: [
+            {name: 'Paul Gordon', age: 25, sex: 'male', role: 'coder', collapsed: false},
+            {name: 'Sarah Lee', age: 23, sex: 'female', role: 'jqueryer', collapsed: false}
+        ]
+    },
+    {
+        type: 'CEO',
+        collapsed: false,
+        people: [
+            {name: 'Drew Anderson', age: 35, sex: 'male', role: 'boss', collapsed: false}
+        ]
+    }
+];
 require('styles/GeoList.less');
 
-var GeoList = React.createClass({
+function getCategoriesState (categories, geoObjects) {
+    var categoriesWithObjects = [];
+    _.each(categories, function (value) {
+        categoriesWithObjects.push({
+            name: value,
+            collapsed: false,
+            geoObjects: _.where(geoObjects, {category:value})
+        });
+    });
+    return {
+        categoriesWithObjects: categoriesWithObjects
+    }
+}
 
+var GeoList = React.createClass({
+    getInitialState: function() {
+        return getCategoriesState(this.props.categories, this.props.geoObjects);
+    },
     render: function () {
         return (
 
@@ -19,12 +52,15 @@ var GeoList = React.createClass({
                         <label htmlFor="tab-categories">Категории</label>
 
                         <div className="content">
-                            {[].map(function (node, i) {
-                                var label = <span className="node" > Type {i} </span>;
+                            {this.state.categoriesWithObjects.map(function(node, index) {
+                                var type = node.name;
+                                var label = <span className="node">{type}</span>;
                                 return (
-                                    <TreeView key={i} nodeLabel={label}>
-                                        {node.map(function (entry) {
-                                            return <div className="info" key={entry}>{entry}</div>;
+                                    <TreeView key={type + '|' + index} nodeLabel={label} defaultCollapsed={false}>
+                                        {node.geoObjects.map(function(geoObject) {
+                                            return (
+                                                <a className="node" href="#">{geoObject.name}</a>
+                                            );
                                         })}
                                     </TreeView>
                                 );
