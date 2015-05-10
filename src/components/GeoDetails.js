@@ -55,8 +55,7 @@ var GeoDetails = React.createClass({
      * @param event
      */
     onAddNewGeoObjectPrompt: function (event) {
-        GeoObjectsAction.addOneObject({
-        });
+        GeoObjectsAction.addOneObject({});
         event.preventDefault();
     },
 
@@ -83,76 +82,102 @@ var GeoDetails = React.createClass({
                         </div>
                     </div>
                     <div className="tab">
-                        <input type="radio" id="tab-list" name="tab-group-2" />
+                        <input type="radio" id="tab-list" name="tab-group-2"/>
                         <label htmlFor="tab-list">Список</label>
 
                         <div className="content">
                             <p className="categoriesListControls">
-                                <a onClick={this.handlePromptNewCategory} href="#" >Новая категория</a>
-                                <a onClick={this.showGeoObjectFormObject} href="#" >Новый объект</a>
+                                <a onClick={this.handlePromptNewCategory} href="#">Новая категория</a>
+                                <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
                             <GeoListTable className="geoTable" data={[
 
-                            ]} />
+                            ]}/>
 
                         </div>
                     </div>
 
                 </div>
-                <Modal visible={false} closable={true} ref="addCategoryModalForm">
+                <Modal visible={true} closable={true} ref="addCategoryModalForm">
                     <header>
                         <h1>Новая категория</h1>
                     </header>
+                    <table border="0" cellspacing="5" cellpadding="5">
+                        <form className="modalForm">
+                            <tr className="spaceUnder">
+                                <td align="right" valign="top">Имя</td>
+                                <td><input type="text" name="name" size="25" ref="newCategoryName"/></td>
+                            </tr>
+                            <tr>
+                                <td align="right" colspan="2">
+                                    <input type="button" value="Создать категорию" onClick={this.onAddNewCategoryPrompt}/>
+                                    <input type="button" value="Отмена" onClick={this.onCancelNewCategory}/>
+                                </td>
+                            </tr>
 
-                    <form id="newCategoryForm">
-                        <p className="categoryName">
-                            <b className="label">Имя:</b>
-                            <input type="text" ref="newCategoryName" />
-                        </p>
-                        <p className="controls">
-                            <input type="button" value="Создать категорию" onClick={this.onAddNewCategoryPrompt}/>
-                            <input type="button" value="Отмена" onClick={this.onCancelNewCategory} />
-                        </p>
-                    </form>
+                        </form>
+                    </table>
                 </Modal>
                 <Modal visible={true} closable={true} ref="addGeoObjectModalForm">
                     <header>
                         <h1>Новый объект</h1>
                     </header>
 
-                    <form id="newGeoObjectForm">
-                        <p>
-                            <b className="label">Имя</b>
-                            <input type="text" ref="geoObjectName" />
-                        </p>
-                        <p>
-                            <b className="label">Адрес</b>
-                            <input type="text" ref="geoObjectAddress" />
-                        </p>
-                        <p>
-                            <b className="label">Широта</b>
-                            <input type="text" ref="geoObjectLatitude" />
-                        </p>
-                        <p>
-                            <b className="label">Долгота</b>
-                            <input type="text" ref="geoObjectLongitude" />
-                        </p>
-                        <p>
-                            <b className="label">Категория</b>
-                            <select ref="geoObjectCategory" >
-                                <option value="empty" defaultValue>Без категории</option>
-                            </select>
-                        </p>
-                        <p>
-                            <b className="label">Карта</b>
-                            <MapComponent className="editorMap"/>
+                    <form name="newGeoObject">
 
-                        </p>
-                        <p className="controls">
-                            <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
-                            <input type="button" value="Отмена" onClick={this.onCancelNewGeoObject} />
-                        </p>
+                        <table border="0" cellspacing="5" cellpadding="5">
+
+                            <tr className="spaceUnder">
+                                <td align="right" valign="top">Имя</td>
+                                <td><input type="text" name="name" size="25" ref="newGeoObjectName"/></td>
+                            </tr>
+
+                            <tr className="spaceUnder">
+                                <td align="right" valign="top">Адрес</td>
+                                <td><input type="text" name="address" size="25" ref="newGeoObjectAddress"/></td>
+                            </tr>
+
+                            <tr className="spaceUnder">
+                                <td align="right" valign="top">Широта</td>
+                                <td>
+                                    <input type="text" name="latitude" size="25" ref="newGeoObjectLatitude"/>
+                                </td>
+                            </tr>
+
+                            <tr className="spaceUnder">
+                                <td align="right" valign="top">Долгота</td>
+                                <td>
+                                    <input type="text" name="longitude" size="25" ref="newGeoObjectLongitude"/>
+                                </td>
+                            </tr>
+
+
+                            <tr className="spaceUnder">
+                                <td align="right" valign="top">Категория</td>
+                                <td>
+                                    <select name="category" ref="newGeoObjectCategory">
+                                        <option defaultSelected value="empty">Без категории</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr className="spaceUnder">
+                                <td align="right" valign="top">Карта</td>
+                                <td>
+                                    <MapComponent />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td align="right" colspan="2">
+                                    <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
+                                    <input type="button" value="Отмена" onClick={this.onCancelNewGeoObject} />
+                                </td>
+                            </tr>
+
+                        </table>
+
                     </form>
                 </Modal>
             </div>
