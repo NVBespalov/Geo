@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var assign = require('object-assign');
+var _ = require('underscore');
 
 var LocalStorageDataProvider = {
 
@@ -36,22 +36,21 @@ var LocalStorageDataProvider = {
      * @param  {string} collectionKey The name of the new collection
      */
     createCollection: function (collectionKey) {
-        this.write(collectionKey, {});
+        this.write(collectionKey, []);
     },
 
     /**
      * Add an item to the existing collection
      * @param {string} collectionKey The name of collection to add data
-     * @param {string} itemId The id of the new item
      * @param {object} collectionItemRawData The item raw data
      */
-    addCollectionItem: function (collectionKey, itemId, collectionItemRawData) {
+    addCollectionItem: function (collectionKey, collectionItemRawData) {
         var collection = this.read(collectionKey);
         if (collection === null) {
             this.createCollection(collectionKey);
             collection = this.read(collectionKey);
         }
-        collection[itemId] = assign({}, collection[itemId], collectionItemRawData);
+        collection.push(collectionItemRawData);
         this.write(collectionKey, collection);
     }
 

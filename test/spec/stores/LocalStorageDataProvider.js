@@ -29,17 +29,16 @@ describe('LocalStorageDataProvider', function () {
 
     it('should add new item to the specified collection', function () {
         var newCollectionKey = 'category';
-        var item = {categoryName:'newCategory'};
-        LocalStorageDataProvider.createCollection(newCollectionKey);
-        LocalStorageDataProvider.addCollectionItem(newCollectionKey, 'new category', item);
-        expect(LocalStorageDataProvider.read(newCollectionKey)).toEqual({'new category':item});
+        var item = 'newCategory';
+        LocalStorageDataProvider.addCollectionItem(newCollectionKey, item);
+        expect(LocalStorageDataProvider.read(newCollectionKey)).toEqual([item]);
     });
 
     it('should create collection if given collection key is undefined', function () {
         var newCollectionKey = 'category';
         var item = {categoryName:'newCategory'};
-        LocalStorageDataProvider.addCollectionItem(newCollectionKey, 'new category', item);
-        expect(LocalStorageDataProvider.read(newCollectionKey)).toEqual({'new category':item});
+        LocalStorageDataProvider.addCollectionItem(newCollectionKey, item);
+        expect(LocalStorageDataProvider.read(newCollectionKey)).toEqual([item]);
     });
 
 });
