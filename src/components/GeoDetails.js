@@ -1,12 +1,13 @@
 'use strict';
 
-import React from "react/addons";
+import React from 'react/addons';
+import {GoogleMaps, Marker} from 'react-google-maps';
 var MapComponent = require('components/Map');
 var Modal = require('components/Modal');
 var CategoriesAction = require('actions/CategoriesActionCreators');
 var GeoObjectsAction = require('actions/GeoObjectActionCreators');
 var GeoListTable = require('reactable').Table;
-var _ = require('underscore');
+var GeoObjectEditor = require('components/GeoObjectEditor');
 
 require('styles/GeoDetails.less');
 
@@ -50,20 +51,7 @@ var GeoDetails = React.createClass({
         event.preventDefault();
     },
 
-    /**
-     * Create new geo object with raw data
-     * @param event
-     */
-    onAddNewGeoObjectPrompt: function (event) {
-        GeoObjectsAction.addOneObject({
-            name: this.refs.newGeoObjectName.getDOMNode().value,
-            address: this.refs.newGeoObjectAddress.getDOMNode().value,
-            latitude: this.refs.newGeoObjectLatitude.getDOMNode().value,
-            longitude: this.refs.newGeoObjectLongitude.getDOMNode().value,
-            category: this.refs.newGeoObjectCategory.getDOMNode().value
-        });
-        event.preventDefault();
-    },
+
 
 
     /**
@@ -76,10 +64,7 @@ var GeoDetails = React.createClass({
     },
 
     render: function () {
-        var categoriesOptions = [<option key="000" defaultSelected value="empty">Без категории</option>];
-        _.each(this.props.categories, function (value, key) {
-            categoriesOptions.push( <option key={key} value={value}>{value}</option>)
-        });
+
         return (
             <div className="right_col">
                 <div className="tabs">
@@ -88,7 +73,13 @@ var GeoDetails = React.createClass({
                         <label htmlFor="tab-map">Карта</label>
 
                         <div className="content">
-                            <MapComponent />
+                            <GoogleMaps containerProps={{style: {height: "100%",width: "100%"}}}
+                                        ref="map"
+                                        googleMapsApi={google.maps}
+                                        zoom={4}
+                                        center={new google.maps.LatLng(-25.363882, 131.044922)}
+                                        onClick/>
+
                         </div>
                     </div>
                     <div className="tab">
@@ -132,61 +123,7 @@ var GeoDetails = React.createClass({
                     <header>
                         <h1>Новый объект</h1>
                     </header>
-                    <form name="newGeoObject">
-
-                        <table border="0" cellSpacing="5" cellPadding="5">
-
-                            <tr className="spaceUnder">
-                                <td align="right" valign="top">Имя</td>
-                                <td><input type="text" name="name" size="25" ref="newGeoObjectName"/></td>
-                            </tr>
-
-                            <tr className="spaceUnder">
-                                <td align="right" valign="top">Адрес</td>
-                                <td><input type="text" name="address" size="25" ref="newGeoObjectAddress"/></td>
-                            </tr>
-
-                            <tr className="spaceUnder">
-                                <td align="right" valign="top">Широта</td>
-                                <td>
-                                    <input type="text" name="latitude" size="25" ref="newGeoObjectLatitude"/>
-                                </td>
-                            </tr>
-
-                            <tr className="spaceUnder">
-                                <td align="right" valign="top">Долгота</td>
-                                <td>
-                                    <input type="text" name="longitude" size="25" ref="newGeoObjectLongitude"/>
-                                </td>
-                            </tr>
-
-
-                            <tr className="spaceUnder">
-                                <td align="right" valign="top">Категория</td>
-                                <td>
-                                    <select name="category" ref="newGeoObjectCategory">
-                                        {categoriesOptions}
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <tr className="spaceUnder">
-                                <td align="right" valign="top">Карта</td>
-                                <td>
-                                    <MapComponent />
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td align="right" colSpan="2">
-                                    <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
-                                    <input type="button" value="Отмена" onClick={this.onCancelNewGeoObject} />
-                                </td>
-                            </tr>
-
-                        </table>
-
-                    </form>
+                    <GeoObjectEditor categories={this.props.categories} geoObject={{}}/>
                 </Modal>
             </div>
         );
