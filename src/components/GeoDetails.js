@@ -100,10 +100,7 @@ var GeoDetails = React.createClass({
                     </div>
 
                 </div>
-                <Modal
-                    visible={false}
-                    closable={true}
-                    ref="addCategoryModalForm">
+                <Modal visible={false} closable={true} ref="addCategoryModalForm">
                     <header>
                         <h1>Новая категория</h1>
                     </header>
@@ -119,10 +116,7 @@ var GeoDetails = React.createClass({
                         </p>
                     </form>
                 </Modal>
-                <Modal
-                    visible={false}
-                    closable={true}
-                    ref="addGeoObjectModalForm">
+                <Modal visible={true} closable={true} ref="addGeoObjectModalForm">
                     <header>
                         <h1>Новый объект</h1>
                     </header>
@@ -143,6 +137,17 @@ var GeoDetails = React.createClass({
                         <p>
                             <b className="label">Долгота</b>
                             <input type="text" ref="geoObjectLongitude" />
+                        </p>
+                        <p>
+                            <b className="label">Категория</b>
+                            <select ref="geoObjectCategory" >
+                                <option value="empty" defaultValue>Без категории</option>
+                            </select>
+                        </p>
+                        <p>
+                            <b className="label">Карта</b>
+                            <MapComponent className="editorMap"/>
+
                         </p>
                         <p className="controls">
                             <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
