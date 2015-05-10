@@ -6,6 +6,8 @@ var Modal = require('components/Modal');
 var CategoriesAction = require('actions/CategoriesActionCreators');
 var GeoObjectsAction = require('actions/GeoObjectActionCreators');
 var GeoListTable = require('reactable').Table;
+var _ = require('underscore');
+
 require('styles/GeoDetails.less');
 
 var GeoDetails = React.createClass({
@@ -97,9 +99,7 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
-                            <GeoListTable className="geoTable" data={[
-
-                            ]}/>
+                            <GeoListTable className="geoTable" data={_.toArray(this.props.geoObjects)}/>
 
                         </div>
                     </div>
