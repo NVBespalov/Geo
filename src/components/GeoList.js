@@ -6,7 +6,7 @@ var _ = require('underscore');
 
 require('styles/GeoList.less');
 
-function getCategoriesState (categories, geoObjects) {
+function getCategoriesWithGeoObjects (categories, geoObjects) {
     var categoriesWithObjects = [];
     _.each(categories, function (value) {
         categoriesWithObjects.push({
@@ -15,15 +15,12 @@ function getCategoriesState (categories, geoObjects) {
             geoObjects: _.where(geoObjects, {category:value})
         });
     });
-    return {
-        categoriesWithObjects: categoriesWithObjects
-    }
+    return categoriesWithObjects;
+
 }
 
 var GeoList = React.createClass({
-    getInitialState: function() {
-        return getCategoriesState(this.props.categories, this.props.geoObjects);
-    },
+
     render: function () {
         return (
 
@@ -36,7 +33,7 @@ var GeoList = React.createClass({
                         <label htmlFor="tab-categories">Категории</label>
 
                         <div className="content">
-                            {this.state.categoriesWithObjects.map(function(node, index) {
+                            {getCategoriesWithGeoObjects(this.props.categories, this.props.geoObjects).map(function(node, index) {
                                 var type = node.name;
                                 var label = <span className="node">{type}</span>;
                                 return (
