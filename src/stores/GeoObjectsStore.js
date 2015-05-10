@@ -19,7 +19,7 @@ var GeoObjectsStore = assign({}, AbstractStore, {
 GeoObjectsStore.dispatchToken = GeoAppDispatcher.register(function (action) {
     switch (action.actionType) {
         case GeoAppActionsConstants.GEO_OBJECTS_CREATE:
-            LocalStoreDataProvider.addCollectionItem(GeoAppActionsConstants.GEO_OBJECTS_COLLECTION, action.rawData.name, action.rawData);
+            LocalStoreDataProvider.addCollectionItem(GeoAppActionsConstants.GEO_OBJECTS_COLLECTION, action.rawData);
             GeoObjectsStore.emitChange();
             break;
         default:
