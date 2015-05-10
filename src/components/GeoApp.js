@@ -36,7 +36,7 @@ var GeoApp = React.createClass({
         return (
         <div id="wrap">
             <h1> Картографический сервис </h1>
-            <GeoList categories={this.state.allCategories} />
+            <GeoList categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
             <GeoDetails categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
         </div>
         );
