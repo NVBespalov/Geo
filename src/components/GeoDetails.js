@@ -46,9 +46,7 @@ var GeoDetails = React.createClass({
      * @param event
      */
     showGeoObjectFormObject: function (event) {
-        CategoriesAction.addOneCategory({
-            name: this.refs.addGeoObjectModalForm.show()
-        });
+        name: this.refs.addGeoObjectModalForm.show();
         event.preventDefault();
     },
 
