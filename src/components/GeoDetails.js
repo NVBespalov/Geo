@@ -46,7 +46,7 @@ var GeoDetails = React.createClass({
      * @param event
      */
     showGeoObjectFormObject: function (event) {
-        name: this.refs.addGeoObjectModalForm.show();
+        this.refs.addGeoObjectModalForm.show();
         event.preventDefault();
     },
 
@@ -76,6 +76,10 @@ var GeoDetails = React.createClass({
     },
 
     render: function () {
+        var categoriesOptions = [<option defaultSelected value="empty">Без категории</option>];
+        _.each(this.props.categories, function (value) {
+            categoriesOptions.push( <option value={value}>{value}</option>)
+        });
         return (
             <div className="right_col">
                 <div className="tabs">
@@ -97,7 +101,7 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
-                            <GeoListTable className="geoTable" data={_.toArray(this.props.geoObjects)}/>
+                            <GeoListTable className="geoTable" data={this.props.geoObjects}/>
 
                         </div>
                     </div>
@@ -159,7 +163,7 @@ var GeoDetails = React.createClass({
                                 <td align="right" valign="top">Категория</td>
                                 <td>
                                     <select name="category" ref="newGeoObjectCategory">
-                                        <option defaultSelected value="empty">Без категории</option>
+                                        {categoriesOptions}
                                     </select>
                                 </td>
                             </tr>
