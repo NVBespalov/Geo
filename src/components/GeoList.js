@@ -3,23 +3,7 @@
 var React = require('react/addons');
 var TreeView = require('react-treeview');
 var _ = require('underscore');
-var dataSource = [
-    {
-        type: 'Employees',
-        collapsed: false,
-        people: [
-            {name: 'Paul Gordon', age: 25, sex: 'male', role: 'coder', collapsed: false},
-            {name: 'Sarah Lee', age: 23, sex: 'female', role: 'jqueryer', collapsed: false}
-        ]
-    },
-    {
-        type: 'CEO',
-        collapsed: false,
-        people: [
-            {name: 'Drew Anderson', age: 35, sex: 'male', role: 'boss', collapsed: false}
-        ]
-    }
-];
+
 require('styles/GeoList.less');
 
 function getCategoriesState (categories, geoObjects) {
