@@ -55,7 +55,13 @@ var GeoDetails = React.createClass({
      * @param event
      */
     onAddNewGeoObjectPrompt: function (event) {
-        GeoObjectsAction.addOneObject({});
+        GeoObjectsAction.addOneObject({
+            name: this.refs.newGeoObjectName.getDOMNode().value,
+            addres: this.refs.newGeoObjectAddress.getDOMNode().value,
+            latitude: this.refs.newGeoObjectLatitude.getDOMNode().value,
+            longitude: this.refs.newGeoObjectLongitude.getDOMNode().value,
+            category: this.refs.newGeoObjectCategory.getDOMNode().value
+        });
         event.preventDefault();
     },
 
@@ -97,9 +103,8 @@ var GeoDetails = React.createClass({
 
                         </div>
                     </div>
-
                 </div>
-                <Modal visible={true} closable={true} ref="addCategoryModalForm">
+                <Modal visible={false} closable={true} ref="addCategoryModalForm">
                     <header>
                         <h1>Новая категория</h1>
                     </header>
@@ -119,11 +124,10 @@ var GeoDetails = React.createClass({
                         </form>
                     </table>
                 </Modal>
-                <Modal visible={true} closable={true} ref="addGeoObjectModalForm">
+                <Modal visible={false} closable={true} ref="addGeoObjectModalForm">
                     <header>
                         <h1>Новый объект</h1>
                     </header>
-
                     <form name="newGeoObject">
 
                         <table border="0" cellspacing="5" cellpadding="5">
