@@ -148,6 +148,7 @@ var GeoObjectEditor = React.createClass({
         }, this.props.geoObject);
         this.setState(getEmptyObjectState());
         event.preventDefault();
+        this.props.addNewObjectHandler(event)
     },
 
     /**
@@ -224,7 +225,7 @@ var GeoObjectEditor = React.createClass({
 
     render: function () {
         return (
-            <Modal visible={this.state.isVisible} closable={this.state.closable} ref="addGeoObjectModalForm">
+            <Modal visible={this.state.isVisible||this.props.isVisible} closable={this.state.closable} ref="addGeoObjectModalForm">
                 <header>
                     <h1>Новый объект</h1>
                 </header>

@@ -48,7 +48,7 @@ var GeoDetails = React.createClass({
      * @param event
      */
     showGeoObjectFormObject: function (event) {
-        this.refs.geoObjectEditor.show();
+        this.setState({geoEditorIsVisible:true});
         event.preventDefault();
     },
 
@@ -58,8 +58,10 @@ var GeoDetails = React.createClass({
      * @private
      */
     _editObjectHandler: function (event) {
-        this.setState({geoObject:_.findWhere(this.props.geoObjects,{id:+event.target.getAttribute('data')})});
-        this.refs.geoObjectEditor.show();
+        this.setState({
+            geoObject:_.findWhere(this.props.geoObjects,{id:+event.target.getAttribute('data')}),
+            geoEditorIsVisible:true
+        });
     },
 
     /**
@@ -67,14 +69,33 @@ var GeoDetails = React.createClass({
      * @private
      */
     _cancelObjectEditHandler: function () {
-        this.setState({geoObject:{}});
+        this.setState({geoObject:{}, geoEditorIsVisible:false});
+    },
+    /**
+     * Add one object handler
+     * @private
+     */
+    _addNewObjectHandler: function () {
+        this.setState({geoObject:{}, geoEditorIsVisible:false});
     },
     getInitialState: function() {
         return {
-            geoObject: {}
+            geoObject: {},
+            geoEditorIsVisible: false
         };
     },
-
+    getGeoObjectEditor: function () {
+        if(this.state.geoEditorIsVisible){
+            return(<GeoObjectEditor
+                ref="geoObjectEditor"
+                isVisible={this.state.geoEditorIsVisible}
+                categories={this.props.categories}
+                geoObject={this.state.geoObject}
+                cancelObjectEditHandler={this._cancelObjectEditHandler}
+                addNewObjectHandler={this._addNewObjectHandler}/>
+            )
+        }
+    },
     render: function () {
 
         return (
@@ -129,7 +150,7 @@ var GeoDetails = React.createClass({
                         </form>
                     </table>
                 </Modal>
-                <GeoObjectEditor ref="geoObjectEditor" categories={this.props.categories} geoObject={this.state.geoObject} cancelObjectEditHandler={this._cancelObjectEditHandler}/>
+                {this.getGeoObjectEditor()}
             </div>
         );
     }

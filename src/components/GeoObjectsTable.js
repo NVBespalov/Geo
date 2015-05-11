@@ -28,7 +28,7 @@ var GeoObjectsTable = React.createClass({
      * @private
      */
     _deleteObjectHandler: function (event) {
-        GeoObjectsAction.deleteObject(_.findWhere(this.props.geoObjects,{name:+event.target.getAttribute('data')}));
+        GeoObjectsAction.deleteObject(_.findWhere(this.props.geoObjects,{id:+event.target.getAttribute('data')}));
     },
 
     /**
@@ -103,7 +103,7 @@ var GeoObjectsTable = React.createClass({
 
     render: function () {
         return (
-            <Table columns = {this.state.columns} className="geoTable">{this._getTableContent()}</Table>
+            <Table className="geoTable">{this._getTableContent()}</Table>
         );
     }
 });
