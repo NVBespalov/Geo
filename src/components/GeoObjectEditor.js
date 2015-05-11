@@ -5,7 +5,9 @@ import {GoogleMaps, Marker} from "react-google-maps";
 var GeoObjectsAction = require('actions/GeoObjectActionCreators');
 var _ = require('underscore');
 const {update} = React.addons;
-var geocoder = new google.maps.Geocoder();
+var geoCoder = new google.maps.Geocoder();
+var Modal = require('components/Modal');
+
 require('styles/GeoObjectEditor.less');
 
 /**
@@ -22,13 +24,16 @@ var GeoObjectEditor = React.createClass({
             markers: []
         };
     },
+    show: function () {
+        this.refs.addGeoObjectModalForm.show();
+    },
     /**
      * Set geo object editor address
      * @param latLng
      * @private
      */
     _setAddressFromLatLng: function (latLng) {
-            geocoder.geocode({'latLng': latLng},this._getAddressCallback);
+            geoCoder.geocode({'latLng': latLng},this._getAddressCallback);
     },
     /**
      * Geo coder callback
@@ -93,10 +98,9 @@ var GeoObjectEditor = React.createClass({
     /**
      * Marker right click handler
      * @param index
-     * @param event
      * @private
      */
-    _handle_marker_rightClick: function (index, event) {
+    _handle_marker_rightClick: function (index) {
         var {markers} = this.state;
         markers = update(markers, {
             $splice: [
@@ -120,7 +124,14 @@ var GeoObjectEditor = React.createClass({
         });
         event.preventDefault();
     },
-
+    /**
+     * Add new geo object form cancel button handler
+     * @param event
+     */
+    onCancelNewGeoObject: function (event) {
+        this.refs.addGeoObjectModalForm.hide();
+        event.preventDefault();
+    },
     /**
      * Get categories select field with options
      * @returns {XML}
@@ -142,66 +153,71 @@ var GeoObjectEditor = React.createClass({
     render: function () {
 
         return (
-            <form name="geoObjectEditor">
+            <Modal visible={false} closable={true} ref="addGeoObjectModalForm">
+                <header>
+                    <h1>Новый объект</h1>
+                </header>
+                <form name="geoObjectEditor">
 
-                <table border="0" cellSpacing="5" cellPadding="5">
+                    <table border="0" cellSpacing="5" cellPadding="5">
 
-                    <tr className="spaceUnder">
-                        <td align="right" valign="top">Имя</td>
-                        <td><input type="text" name="name" ref="newGeoObjectName"/></td>
-                    </tr>
+                        <tr className="spaceUnder">
+                            <td align="right" valign="top">Имя</td>
+                            <td><input type="text" name="name" ref="newGeoObjectName"/></td>
+                        </tr>
 
-                    <tr className="spaceUnder">
-                        <td align="right" valign="top">Адрес</td>
-                        <td><input type="text" name="address" ref="newGeoObjectAddress"/></td>
-                    </tr>
+                        <tr className="spaceUnder">
+                            <td align="right" valign="top">Адрес</td>
+                            <td><input type="text" name="address" ref="newGeoObjectAddress"/></td>
+                        </tr>
 
-                    <tr className="spaceUnder">
-                        <td align="right" valign="top">Широта</td>
-                        <td>
-                            <input type="text" name="latitude" ref="newGeoObjectLatitude"/>
-                        </td>
-                    </tr>
+                        <tr className="spaceUnder">
+                            <td align="right" valign="top">Широта</td>
+                            <td>
+                                <input type="text" name="latitude" ref="newGeoObjectLatitude"/>
+                            </td>
+                        </tr>
 
-                    <tr className="spaceUnder">
-                        <td align="right" valign="top">Долгота</td>
-                        <td>
-                            <input type="text" name="longitude" ref="newGeoObjectLongitude"/>
-                        </td>
-                    </tr>
+                        <tr className="spaceUnder">
+                            <td align="right" valign="top">Долгота</td>
+                            <td>
+                                <input type="text" name="longitude" ref="newGeoObjectLongitude"/>
+                            </td>
+                        </tr>
 
 
-                    <tr className="spaceUnder">
-                        <td align="right" valign="top">Категория</td>
-                        <td>
-                            {this._getCategoriesSelectField()}
-                        </td>
-                    </tr>
+                        <tr className="spaceUnder">
+                            <td align="right" valign="top">Категория</td>
+                            <td>
+                                {this._getCategoriesSelectField()}
+                            </td>
+                        </tr>
 
-                    <tr className="spaceUnder mapContainer">
-                        <td align="right" valign="top">Карта</td>
-                        <td>
-                            <GoogleMaps containerProps={{style: {height: "100%",width: "100%"}}}
-                                        ref="editorMap"
-                                        googleMapsApi={google.maps}
-                                        zoom={3}
-                                        center={new google.maps.LatLng(0.0, 0.0)}
-                                        onClick={this._handleMapClick}>
-                                {this.state.markers.map(this._getMarkerComponent, this)}
-                            </GoogleMaps>
-                        </td>
-                    </tr>
+                        <tr className="spaceUnder mapContainer">
+                            <td align="right" valign="top">Карта</td>
+                            <td>
+                                <GoogleMaps containerProps={{style: {height: "100%",width: "100%"}}}
+                                            ref="editorMap"
+                                            googleMapsApi={google.maps}
+                                            zoom={3}
+                                            center={new google.maps.LatLng(0.0, 0.0)}
+                                            onClick={this._handleMapClick}>
+                                    {this.state.markers.map(this._getMarkerComponent, this)}
+                                </GoogleMaps>
+                            </td>
+                        </tr>
 
-                    <tr className="controls">
-                        <td align="right" colSpan="2">
-                            <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
-                            <input type="button" value="Отмена" onClick={this.onCancelNewGeoObject}/>
-                        </td>
-                    </tr>
+                        <tr className="controls">
+                            <td align="right" colSpan="2">
+                                <input type="button" value="Создать объект" onClick={this.onAddNewGeoObjectPrompt}/>
+                                <input type="button" value="Отмена" onClick={this.onCancelNewGeoObject}/>
+                            </td>
+                        </tr>
 
-                </table>
+                    </table>
 
-            </form>
+                </form>
+            </Modal>
         );
     }
 });

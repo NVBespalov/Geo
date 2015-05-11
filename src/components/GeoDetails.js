@@ -47,21 +47,14 @@ var GeoDetails = React.createClass({
      * @param event
      */
     showGeoObjectFormObject: function (event) {
-        this.refs.addGeoObjectModalForm.show();
+        this.refs.geoObjectEditor.show();
         event.preventDefault();
     },
 
 
 
 
-    /**
-     * Add new geo object form cancel button handler
-     * @param event
-     */
-    onCancelNewGeoObject: function (event) {
-        this.refs.addGeoObjectModalForm.hide();
-        event.preventDefault();
-    },
+
 
     render: function () {
 
@@ -119,12 +112,7 @@ var GeoDetails = React.createClass({
                         </form>
                     </table>
                 </Modal>
-                <Modal visible={false} closable={true} ref="addGeoObjectModalForm">
-                    <header>
-                        <h1>Новый объект</h1>
-                    </header>
-                    <GeoObjectEditor categories={this.props.categories} geoObject={{}}/>
-                </Modal>
+                <GeoObjectEditor ref="geoObjectEditor" categories={this.props.categories} geoObject={{}}/>
             </div>
         );
     }
