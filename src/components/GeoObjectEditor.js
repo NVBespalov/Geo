@@ -21,11 +21,14 @@ var GeoObjectEditor = React.createClass({
 
     getInitialState: function () {
         return {
-            markers: []
+            markers: [],
+            isVisible: false,
+            zoomLevel: 3,
+            mapCenter: {lat: -34.397, lng: 150.644}
         };
     },
     show: function () {
-        this.refs.addGeoObjectModalForm.show();
+        this.setState({isVisible:true});
     },
     /**
      * Set geo object editor address
@@ -129,7 +132,7 @@ var GeoObjectEditor = React.createClass({
      * @param event
      */
     onCancelNewGeoObject: function (event) {
-        this.refs.addGeoObjectModalForm.hide();
+        this.setState({isVisible:false});
         event.preventDefault();
     },
     /**
@@ -149,11 +152,22 @@ var GeoObjectEditor = React.createClass({
             </select>
         );
     },
+    /**
+     * Map zoom changed handler
+     * @private
+     */
+    _handle_zoom_changed: function () {
+        var zoomLevel = this.refs.editorMap.getZoom();
+        var existingMarker = this.state.markers[0] || {position:this.state.mapCenter};
+        if (zoomLevel !== this.state.zoomLevel) {
+            this.setState({zoomLevel:zoomLevel});
+            this.refs.editorMap.panTo(existingMarker.position);
+        }
 
+    },
     render: function () {
-
         return (
-            <Modal visible={false} closable={true} ref="addGeoObjectModalForm">
+            <Modal visible={this.state.isVisible} closable={true} ref="addGeoObjectModalForm">
                 <header>
                     <h1>Новый объект</h1>
                 </header>
@@ -199,8 +213,9 @@ var GeoObjectEditor = React.createClass({
                                 <GoogleMaps containerProps={{style: {height: "100%",width: "100%"}}}
                                             ref="editorMap"
                                             googleMapsApi={google.maps}
-                                            zoom={3}
-                                            center={new google.maps.LatLng(0.0, 0.0)}
+                                            zoom={this.state.zoomLevel}
+                                            onZoomChanged={this._handle_zoom_changed}
+                                            center={this.state.mapCenter}
                                             onClick={this._handleMapClick}>
                                     {this.state.markers.map(this._getMarkerComponent, this)}
                                 </GoogleMaps>

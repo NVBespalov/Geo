@@ -8,7 +8,7 @@ describe('GeoDetails', function () {
         window.google = {
             maps: {
                 Geocoder: function () {
-                    
+
                 }
             }
         };
