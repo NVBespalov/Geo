@@ -37,7 +37,7 @@ var GeoObjectsTable = React.createClass({
      * @private
      */
     _editObjectHandler: function (event) {
-
+        this.props.editObjectHandler(event);
     },
 
     /**
@@ -53,7 +53,7 @@ var GeoObjectsTable = React.createClass({
             </Td>,
             <Td column="Действия">
                 <b>
-                    <a href="#" data={geoObject.name} data={geoObject.name} onClick={this._editObjectHandler}>Редактировать</a>
+                    <a href="#" data={geoObject.name} onClick={this._editObjectHandler}>Редактировать</a>
                     <br/>
                     <a href="#" onClick={this._deleteObjectHandler} data={geoObject.name}>Удалить</a>
                 </b>
