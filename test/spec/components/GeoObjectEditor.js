@@ -5,6 +5,13 @@ describe('GeoObjectEditor', function () {
     var GeoObjectEditor, component;
 
     beforeEach(function () {
+        window.google = {
+            maps: {
+                Geocoder: function () {
+
+                }
+            }
+        };
         GeoObjectEditor = require('components/GeoObjectEditor.js');
         component = React.createElement(GeoObjectEditor);
     });

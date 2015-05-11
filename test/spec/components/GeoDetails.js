@@ -5,6 +5,13 @@ describe('GeoDetails', function () {
     var GeoDetails, component;
 
     beforeEach(function () {
+        window.google = {
+            maps: {
+                Geocoder: function () {
+                    
+                }
+            }
+        };
         GeoDetails = require('components/GeoDetails.js');
         component = React.createElement(GeoDetails);
     });
