@@ -32,6 +32,15 @@ var GeoObjectsTable = React.createClass({
     },
 
     /**
+     * Handle user edit object prompt
+     * @param event
+     * @private
+     */
+    _editObjectHandler: function (event) {
+
+    },
+
+    /**
      * The action columns to show on the map or delete geo object
      * @param geoObject
      * @returns {XML[]}
@@ -39,12 +48,12 @@ var GeoObjectsTable = React.createClass({
      */
     _getTableContentActionColumns: function (geoObject) {
         return [
-            <Td column="Карта">
+            <Td column="Карта" r>
                 <a href="#">на карте</a>
             </Td>,
             <Td column="Действия">
                 <b>
-                    <a href="#" data={geoObject.name}>Редактировать</a>
+                    <a href="#" data={geoObject.name} data={geoObject.name} onClick={this._editObjectHandler}>Редактировать</a>
                     <br/>
                     <a href="#" onClick={this._deleteObjectHandler} data={geoObject.name}>Удалить</a>
                 </b>
