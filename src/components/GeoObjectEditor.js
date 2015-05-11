@@ -18,7 +18,7 @@ function getEmptyObjectState() {
         zoomLevel: 3,
         mapCenter: {lat: -34.397, lng: 150.644},
         address: '',
-        category: '',
+        category: 'Без категории',
         latitude: '',
         longitude: '',
         name: ''
@@ -139,6 +139,7 @@ var GeoObjectEditor = React.createClass({
      * @param event
      */
     onAddNewGeoObjectPrompt: function (event) {
+        this.props.addNewObjectHandler(event);
         GeoObjectsAction.addOneOrUpdateObject({
             name: this.state.name,
             address: this.state.address,
@@ -148,7 +149,6 @@ var GeoObjectEditor = React.createClass({
         }, this.props.geoObject);
         this.setState(getEmptyObjectState());
         event.preventDefault();
-        this.props.addNewObjectHandler(event);
     },
 
     /**
@@ -167,7 +167,7 @@ var GeoObjectEditor = React.createClass({
      * @private
      */
     _getCategoriesSelectField: function () {
-        var categoriesOptions = [<option key="000" defaultSelected value="Без категории">Без категории</option>];
+        var categoriesOptions = [];
         _.each(this.props.categories, function (value, key) {
             categoriesOptions.push(<option key={key} value={value}>{value}</option>);
         });
@@ -218,11 +218,10 @@ var GeoObjectEditor = React.createClass({
         //this._setMarkerFromLatLng(currentLatitude, currentLongitude);
     },
 
-    componentWillReceiveProps: function (nextProps) {
-        this.setState(nextProps.geoObject);
-        this._setMarkerFromLatLng(nextProps.geoObject.latitude, nextProps.geoObject.longitude);
+    componentDidMount: function () {
+        this.setState(this.props.geoObject);
+        this._setMarkerFromLatLng(this.props.geoObject.latitude, this.props.geoObject.longitude);
     },
-
     render: function () {
         return (
             <Modal visible={this.state.isVisible||this.props.isVisible} closable={this.state.closable} ref="addGeoObjectModalForm">

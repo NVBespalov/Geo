@@ -12,7 +12,8 @@ var CategoriesStore = assign({}, AbstractStore, {
      * @returns {*}
      */
     getAllCategories: function () {
-        return LocalStoreDataProvider.read(GeoAppActionsConstants.CATEGORIES_COLLECTION);
+        var _ = require('underscore');
+        return _.union(LocalStoreDataProvider.read(GeoAppActionsConstants.CATEGORIES_COLLECTION),['Без категории']);
     }
 
 });
