@@ -93,7 +93,7 @@ var GeoDetails = React.createClass({
                 geoObject={this.state.geoObject}
                 cancelObjectEditHandler={this._cancelObjectEditHandler}
                 addNewObjectHandler={this._addNewObjectHandler}/>
-            )
+            );
         }
     },
     render: function () {

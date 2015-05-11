@@ -148,7 +148,7 @@ var GeoObjectEditor = React.createClass({
         }, this.props.geoObject);
         this.setState(getEmptyObjectState());
         event.preventDefault();
-        this.props.addNewObjectHandler(event)
+        this.props.addNewObjectHandler(event);
     },
 
     /**
