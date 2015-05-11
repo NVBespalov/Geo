@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var _ = require('underscore');
+
 
 var LocalStorageDataProvider = {
 
@@ -52,6 +52,21 @@ var LocalStorageDataProvider = {
         }
         collection.push(collectionItemRawData);
         this.write(collectionKey, collection);
+    },
+
+    /**
+     * Delete item from the existing collection
+     * @param {string} collectionKey The name of collection to add data
+     * @param {object} collectionItemRawData The item raw data
+     */
+    deleteCollectionItem: function (collectionKey, collectionItemRawData) {
+        var collection = this.read(collectionKey);
+        var _ = require('underscore');
+        if (collection) {
+            collection = _.without(collection,_.findWhere(collection,collectionItemRawData));
+            this.write(collectionKey, collection);
+        }
+
     }
 
 };

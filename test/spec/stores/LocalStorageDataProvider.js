@@ -41,4 +41,12 @@ describe('LocalStorageDataProvider', function () {
         expect(LocalStorageDataProvider.read(newCollectionKey)).toEqual([item]);
     });
 
+    it('should remove item from collection', function () {
+        var newCollectionKey = 'category';
+        var item = {categoryName:'newCategory'};
+        LocalStorageDataProvider.addCollectionItem(newCollectionKey, item);
+        LocalStorageDataProvider.deleteCollectionItem(newCollectionKey, item);
+        expect(LocalStorageDataProvider.read(newCollectionKey)).toEqual([]);
+    });
+
 });
