@@ -6,7 +6,7 @@ var MapComponent = require('components/Map');
 var Modal = require('components/Modal');
 var CategoriesAction = require('actions/CategoriesActionCreators');
 var GeoObjectsAction = require('actions/GeoObjectActionCreators');
-var GeoListTable = require('reactable').Table;
+var GeoListTable = require('components/GeoObjectsTable');
 var GeoObjectEditor = require('components/GeoObjectEditor');
 
 require('styles/GeoDetails.less');
@@ -71,7 +71,7 @@ var GeoDetails = React.createClass({
                                         googleMapsApi={google.maps}
                                         zoom={4}
                                         center={new google.maps.LatLng(-25.363882, 131.044922)}
-                                        onClick/>
+                                        />
 
                         </div>
                     </div>
@@ -85,9 +85,7 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
-                            <GeoListTable className="geoTable"
-                                          columns={[{key:"name", label:"Имя"},{key:"address", label:"Адрес"},{key:"latitude", label:"Широта"},{key:"longitude", label:"Долгота"},{key:"category", label:"Категория"}]}
-                                          data={this.props.geoObjects}/>
+                            <GeoListTable geoObjects={this.props.geoObjects} />
 
                         </div>
                     </div>
