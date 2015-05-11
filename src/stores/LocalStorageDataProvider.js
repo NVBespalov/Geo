@@ -67,6 +67,23 @@ var LocalStorageDataProvider = {
             this.write(collectionKey, collection);
         }
 
+    },
+
+    /**
+     * Update item from the existing collection
+     * @param {string} collectionKey The name of collection to add data
+     * @param {object} oldObjectRawData The old object to update
+     * @param {object} collectionItemRawData The item raw data
+     */
+    updateCollectionItem: function (collectionKey, oldObjectRawData, collectionItemRawData) {
+        var collection = this.read(collectionKey);
+        var _ = require('underscore');
+        if (collection) {
+            collection = _.without(collection,_.findWhere(collection,oldObjectRawData));
+            this.write(collectionKey, collection);
+            this.addCollectionItem(collectionKey, _.extend(oldObjectRawData,collectionItemRawData));
+        }
+
     }
 
 };

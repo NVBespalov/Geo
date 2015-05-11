@@ -6,12 +6,24 @@ var GeoObjectActionCreators = {
     /**
      * Add one geo object with raw data
      * @param {object} geoObjectRawData The raw data that describes geo object
+     * @param oldObject
      */
-    addOneObject: function (geoObjectRawData) {
-        GeoAppDispatcher.dispatch({
-            actionType: GeoAppActionsConstants.GEO_OBJECTS_CREATE,
-            rawData: geoObjectRawData
-        });
+    addOneOrUpdateObject: function (geoObjectRawData, oldObject) {
+        var _ = require('underscore');
+        if(_.keys(oldObject).length){
+            GeoAppDispatcher.dispatch({
+                actionType: GeoAppActionsConstants.GEO_OBJECTS_UPDATE,
+                rawData: geoObjectRawData,
+                oldRawData: oldObject
+            });
+        } else {
+            var objectToStore =  _.extend(geoObjectRawData, {id: Date.now()});
+            GeoAppDispatcher.dispatch({
+                actionType: GeoAppActionsConstants.GEO_OBJECTS_CREATE,
+                rawData: objectToStore
+            });
+        }
+
     },
 
     /**

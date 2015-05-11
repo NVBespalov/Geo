@@ -28,7 +28,7 @@ var GeoObjectsTable = React.createClass({
      * @private
      */
     _deleteObjectHandler: function (event) {
-        GeoObjectsAction.deleteObject(_.findWhere(this.props.geoObjects,{name:event.target.getAttribute('data')}));
+        GeoObjectsAction.deleteObject(_.findWhere(this.props.geoObjects,{name:+event.target.getAttribute('data')}));
     },
 
     /**
@@ -53,9 +53,9 @@ var GeoObjectsTable = React.createClass({
             </Td>,
             <Td column="Действия">
                 <b>
-                    <a href="#" data={geoObject.name} onClick={this._editObjectHandler}>Редактировать</a>
+                    <a href="#" data={geoObject.id} onClick={this._editObjectHandler}>Редактировать</a>
                     <br/>
-                    <a href="#" onClick={this._deleteObjectHandler} data={geoObject.name}>Удалить</a>
+                    <a href="#" onClick={this._deleteObjectHandler} data={geoObject.id}>Удалить</a>
                 </b>
             </Td>
         ];
@@ -71,11 +71,14 @@ var GeoObjectsTable = React.createClass({
         var geoObjectTableContentColumns = [];
         var _this = this;
         _.each(geoObject, function (value, key) {
-            geoObjectTableContentColumns.push(
-                <Td column={_.findWhere(_this.state.columns,{key:key}).label} data={value}>
-                    <b>{value}</b>
-                </Td>
-            );
+            var column = _.findWhere(_this.state.columns,{key:key});
+            if (column) {
+                geoObjectTableContentColumns.push(
+                    <Td column={column.label} data={value}>
+                        <b>{value}</b>
+                    </Td>
+                );
+            }
         });
         return _.union(geoObjectTableContentColumns, this._getTableContentActionColumns(geoObject));
     },
@@ -100,7 +103,7 @@ var GeoObjectsTable = React.createClass({
 
     render: function () {
         return (
-            <Table className="geoTable">{this._getTableContent()}</Table>
+            <Table columns = {this.state.columns} className="geoTable">{this._getTableContent()}</Table>
         );
     }
 });

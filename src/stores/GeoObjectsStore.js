@@ -26,6 +26,10 @@ GeoObjectsStore.dispatchToken = GeoAppDispatcher.register(function (action) {
             LocalStoreDataProvider.deleteCollectionItem(GeoAppActionsConstants.GEO_OBJECTS_COLLECTION, action.rawData);
             GeoObjectsStore.emitChange();
             break;
+        case GeoAppActionsConstants.GEO_OBJECTS_UPDATE:
+            LocalStoreDataProvider.updateCollectionItem(GeoAppActionsConstants.GEO_OBJECTS_COLLECTION, action.oldRawData, action.rawData);
+            GeoObjectsStore.emitChange();
+            break;
         default:
     }
 

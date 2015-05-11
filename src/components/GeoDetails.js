@@ -58,10 +58,17 @@ var GeoDetails = React.createClass({
      * @private
      */
     _editObjectHandler: function (event) {
-        this.setState({geoObject:_.findWhere(this.props.geoObjects,{name:event.target.getAttribute('data')})});
+        this.setState({geoObject:_.findWhere(this.props.geoObjects,{id:+event.target.getAttribute('data')})});
         this.refs.geoObjectEditor.show();
     },
 
+    /**
+     * Cancel edit object handler
+     * @private
+     */
+    _cancelObjectEditHandler: function () {
+        this.setState({geoObject:{}});
+    },
     getInitialState: function() {
         return {
             geoObject: {}
@@ -97,7 +104,7 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
-                            <GeoListTable geoObjects={this.props.geoObjects} editObjectHandler={this._editObjectHandler} />
+                            <GeoListTable geoObjects={this.props.geoObjects} editObjectHandler={this._editObjectHandler}/>
 
                         </div>
                     </div>
@@ -122,7 +129,7 @@ var GeoDetails = React.createClass({
                         </form>
                     </table>
                 </Modal>
-                <GeoObjectEditor ref="geoObjectEditor" categories={this.props.categories} geoObject={this.state.geoObject}/>
+                <GeoObjectEditor ref="geoObjectEditor" categories={this.props.categories} geoObject={this.state.geoObject} cancelObjectEditHandler={this._cancelObjectEditHandler}/>
             </div>
         );
     }

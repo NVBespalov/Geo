@@ -10,31 +10,29 @@ var Modal = require('components/Modal');
 
 require('styles/GeoObjectEditor.less');
 
-function getEmptyObjectState () {
+function getEmptyObjectState() {
     return {
+        markers: [],
+        isVisible: false,
+        closable: false,
+        zoomLevel: 3,
+        mapCenter: {lat: -34.397, lng: 150.644},
         address: '',
         category: '',
         latitude: '',
-        longitude: ''
+        longitude: '',
+        name: ''
     };
 }
 
 var GeoObjectEditor = React.createClass({
 
     getInitialState: function () {
-        return {
-            markers: [],
-            isVisible: false,
-            zoomLevel: 3,
-            mapCenter: {lat: -34.397, lng: 150.644},
-            address: '',
-            category: '',
-            latitude: '',
-            longitude: ''
-        };
+        return getEmptyObjectState();
     },
+
     show: function () {
-        this.setState({isVisible:true});
+        this.setState({isVisible: true});
     },
 
     /**
@@ -43,7 +41,7 @@ var GeoObjectEditor = React.createClass({
      * @private
      */
     _setAddressFromLatLng: function (latLng) {
-            geoCoder.geocode({'latLng': latLng},this._getAddressCallback);
+        geoCoder.geocode({'latLng': latLng}, this._getAddressCallback);
     },
 
     /**
@@ -55,10 +53,10 @@ var GeoObjectEditor = React.createClass({
     _getAddressCallback: function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
-                this.setState({address:results[0].formatted_address});
+                this.setState({address: results[0].formatted_address});
             }
             else {
-                tthis.setState({address:''});
+                this.setState({address: ''});
             }
         }
     },
@@ -84,9 +82,27 @@ var GeoObjectEditor = React.createClass({
             <Marker position={marker.position}
                     key={marker.key}
                     onRightclick={this._handle_marker_rightClick.bind(this, index)}
-                    //icon={pinImage}
+                //icon={pinImage}
                 />
         );
+    },
+    /**
+     * Set map marker to given lat & lng coordinates
+     * @param lat
+     * @param lng
+     * @private
+     */
+    _setMarkerFromLatLng: function (lat, lng) {
+        if (!isNaN(parseInt(lat)) && !isNaN(parseInt(lng))) {
+            var {markers} = this.state;
+            markers = [{
+                position: new google.maps.LatLng(lat, lng),
+                key: Date.now()
+            }];
+            this.setState({markers});
+            this.refs.editorMap.panTo(new google.maps.LatLng(lat, lng));
+        }
+
     },
 
     /**
@@ -95,13 +111,7 @@ var GeoObjectEditor = React.createClass({
      * @private
      */
     _handleMapClick: function (event) {
-        var {markers} = this.state;
-        markers = [{
-            position: event.latLng,
-            key: Date.now()
-        }];
-        this.setState({markers});
-        this.refs.editorMap.panTo(event.latLng);
+        this._setMarkerFromLatLng(event.latLng.lat(), event.latLng.lng());
         this.setState({
             latitude: event.latLng.lat(),
             longitude: event.latLng.lng()
@@ -129,13 +139,14 @@ var GeoObjectEditor = React.createClass({
      * @param event
      */
     onAddNewGeoObjectPrompt: function (event) {
-        GeoObjectsAction.addOneObject({
-            name: this.refs.newGeoObjectName.getDOMNode().value,
-            address: this.refs.newGeoObjectAddress.getDOMNode().value,
-            latitude: this.refs.newGeoObjectLatitude.getDOMNode().value,
-            longitude: this.refs.newGeoObjectLongitude.getDOMNode().value,
-            category: this.refs.newGeoObjectCategory.getDOMNode().value
-        });
+        GeoObjectsAction.addOneOrUpdateObject({
+            name: this.state.name,
+            address: this.state.address,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
+            category: this.state.category
+        }, this.props.geoObject);
+        this.setState(getEmptyObjectState());
         event.preventDefault();
     },
 
@@ -144,8 +155,9 @@ var GeoObjectEditor = React.createClass({
      * @param event
      */
     onCancelNewGeoObject: function (event) {
-        this.setState(_.union({isVisible:false}, getEmptyObjectState()));
+        this.setState(getEmptyObjectState());
         event.preventDefault();
+        this.props.cancelObjectEditHandler(event);
     },
 
     /**
@@ -172,13 +184,14 @@ var GeoObjectEditor = React.createClass({
      */
     _handle_zoom_changed: function () {
         var zoomLevel = this.refs.editorMap.getZoom();
-        var existingMarker = this.state.markers[0] || {position:this.state.mapCenter};
+        var existingMarker = this.state.markers[0] || {position: this.state.mapCenter};
         if (zoomLevel !== this.state.zoomLevel) {
-            this.setState({zoomLevel:zoomLevel});
+            this.setState({zoomLevel: zoomLevel});
             this.refs.editorMap.panTo(existingMarker.position);
         }
 
     },
+
     /**
      * On input changed
      * @param event
@@ -186,15 +199,32 @@ var GeoObjectEditor = React.createClass({
     onChange: function (event) {
         var statePropertyName = event.target.name;
         var stateObject = {};
+        var currentLatitude;
+        var currentLongitude;
+
         stateObject[statePropertyName] = event.target.value;
         this.setState(stateObject);
+
+        if(statePropertyName === 'latitude'){
+            currentLatitude = event.target.value;
+            currentLongitude =this.state.longitude;
+        }
+        if(statePropertyName === 'longitude') {
+            currentLongitude = event.target.value;
+            currentLatitude = this.state.latitude;
+        }
+        //@TODO This should be done some how i don't know how
+        //this._setMarkerFromLatLng(currentLatitude, currentLongitude);
     },
-    componentWillReceiveProps: function(nextProps) {
+
+    componentWillReceiveProps: function (nextProps) {
         this.setState(nextProps.geoObject);
+        this._setMarkerFromLatLng(nextProps.geoObject.latitude, nextProps.geoObject.longitude);
     },
+
     render: function () {
         return (
-            <Modal visible={this.state.isVisible} closable={true} ref="addGeoObjectModalForm">
+            <Modal visible={this.state.isVisible} closable={this.state.closable} ref="addGeoObjectModalForm">
                 <header>
                     <h1>Новый объект</h1>
                 </header>
@@ -204,25 +234,29 @@ var GeoObjectEditor = React.createClass({
 
                         <tr className="spaceUnder">
                             <td align="right" valign="top">Имя</td>
-                            <td><input type="text" onChange={this.onChange} name="name" value={this.state.name} ref="newGeoObjectName"/></td>
+                            <td><input type="text" onChange={this.onChange} name="name" value={this.state.name}
+                                       ref="newGeoObjectName"/></td>
                         </tr>
 
                         <tr className="spaceUnder">
                             <td align="right" valign="top">Адрес</td>
-                            <td><input type="text" name="address" ref="newGeoObjectAddress" onChange={this.onChange} value={this.state.address}/></td>
+                            <td><input type="text" name="address" ref="newGeoObjectAddress" onChange={this.onChange}
+                                       value={this.state.address}/></td>
                         </tr>
 
                         <tr className="spaceUnder">
                             <td align="right" valign="top">Широта</td>
                             <td>
-                                <input type="text" name="latitude" ref="newGeoObjectLatitude" onChange={this.onChange} value={this.state.latitude}/>
+                                <input type="text" name="latitude" ref="newGeoObjectLatitude" onChange={this.onChange}
+                                       value={this.state.latitude}/>
                             </td>
                         </tr>
 
                         <tr className="spaceUnder">
                             <td align="right" valign="top">Долгота</td>
                             <td>
-                                <input type="text" name="longitude" ref="newGeoObjectLongitude" onChange={this.onChange} value={this.state.longitude}/>
+                                <input type="text" name="longitude" ref="newGeoObjectLongitude" onChange={this.onChange}
+                                       value={this.state.longitude}/>
                             </td>
                         </tr>
 
