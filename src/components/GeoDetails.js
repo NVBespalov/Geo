@@ -8,6 +8,7 @@ var CategoriesAction = require('actions/CategoriesActionCreators');
 var GeoObjectsAction = require('actions/GeoObjectActionCreators');
 var GeoListTable = require('components/GeoObjectsTable');
 var GeoObjectEditor = require('components/GeoObjectEditor');
+var _ = require('underscore');
 
 require('styles/GeoDetails.less');
 
@@ -51,10 +52,21 @@ var GeoDetails = React.createClass({
         event.preventDefault();
     },
 
+    /**
+     * Handle user edit object prompt
+     * @param event
+     * @private
+     */
+    _editObjectHandler: function (event) {
+        this.setState({geoObject:_.findWhere(this.props.geoObjects,{name:event.target.getAttribute('data')})});
+        this.refs.geoObjectEditor.show();
+    },
 
-
-
-
+    getInitialState: function() {
+        return {
+            geoObject: {}
+        };
+    },
 
     render: function () {
 
@@ -85,7 +97,7 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
-                            <GeoListTable geoObjects={this.props.geoObjects} />
+                            <GeoListTable geoObjects={this.props.geoObjects} editObjectHandler={this._editObjectHandler} />
 
                         </div>
                     </div>
@@ -110,7 +122,7 @@ var GeoDetails = React.createClass({
                         </form>
                     </table>
                 </Modal>
-                <GeoObjectEditor ref="geoObjectEditor" categories={this.props.categories} geoObject={{}}/>
+                <GeoObjectEditor ref="geoObjectEditor" categories={this.props.categories} geoObject={this.state.geoObject}/>
             </div>
         );
     }
