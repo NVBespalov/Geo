@@ -89,7 +89,7 @@ var GeoDetails = React.createClass({
         var marker;
         if (!isNaN(parseInt(lat)) && !isNaN(parseInt(lng))) {
             marker = {
-                position: new google.maps.LatLng(lat, lng),
+                position: new google.maps.LatLng(lat, lng)
             };
         }
         return marker;
@@ -97,11 +97,10 @@ var GeoDetails = React.createClass({
     /**
      * Get marker with marker raw data
      * @param {object} marker The marker raw data
-     * @param {int} index
      * @returns {XML}
      * @private
      */
-    _getMarkerComponent: function (marker, index) {
+    _getMarkerComponent: function (marker) {
         var pinColor = Math.floor(Math.random()*16777215).toString(16);
         var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
             new google.maps.Size(21, 34),
