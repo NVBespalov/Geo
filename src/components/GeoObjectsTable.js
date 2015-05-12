@@ -48,14 +48,14 @@ var GeoObjectsTable = React.createClass({
      */
     _getTableContentActionColumns: function (geoObject) {
         return [
-            <Td column="Карта" r>
-                <a href="#">на карте</a>
+            <Td key={'_' + Math.random().toString(36).substr(2, 9)} column="Карта" >
+                <a key={'_' + Math.random().toString(36).substr(2, 9)} href="#">на карте</a>
             </Td>,
-            <Td column="Действия">
-                <b>
-                    <a href="#" data={geoObject.id} onClick={this._editObjectHandler}>Редактировать</a>
+            <Td key={'_' + Math.random().toString(36).substr(2, 9)} column="Действия">
+                <b key={'_' + Math.random().toString(36).substr(2, 9)}>
+                    <a key={'_' + Math.random().toString(36).substr(2, 9)} href="#" data={geoObject.id} onClick={this._editObjectHandler}>Редактировать</a>
                     <br/>
-                    <a href="#" onClick={this._deleteObjectHandler} data={geoObject.id}>Удалить</a>
+                    <a key={'_' + Math.random().toString(36).substr(2, 9)} href="#" onClick={this._deleteObjectHandler} data={geoObject.id}>Удалить</a>
                 </b>
             </Td>
         ];
@@ -74,8 +74,8 @@ var GeoObjectsTable = React.createClass({
             var column = _.findWhere(_this.state.columns,{key:key});
             if (column) {
                 geoObjectTableContentColumns.push(
-                    <Td column={column.label} data={value}>
-                        <b>{value}</b>
+                    <Td key={'_' + Math.random().toString(36).substr(2, 9)} column={column.label} data={value}>
+                        <b key={'_' + Math.random().toString(36).substr(2, 9)}>{value}</b>
                     </Td>
                 );
             }
@@ -93,7 +93,7 @@ var GeoObjectsTable = React.createClass({
         var _this = this;
         _.each(this.props.geoObjects, function (geoObject) {
             geoObjectTableContent.push(
-                <Tr>
+                <Tr key={'_' + Math.random().toString(36).substr(2, 9)}>
                     {_this._getTableContentColumns(geoObject)}
                 </Tr>
             );
