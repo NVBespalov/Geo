@@ -176,7 +176,7 @@ var GeoDetails = React.createClass({
             <div className="right_col">
                 <div className="tabs">
                     <div className="tab">
-                        <input type="radio" id="tab-map" name="tab-group-2" defaultChecked/>
+                        <input type="radio" id="tab-map" name="tab-group-map" defaultChecked/>
                         <label htmlFor="tab-map">Карта</label>
 
                         <div className="content">
@@ -192,7 +192,7 @@ var GeoDetails = React.createClass({
                         </div>
                     </div>
                     <div className="tab">
-                        <input type="radio" id="tab-list" name="tab-group-2"/>
+                        <input type="radio" id="tab-list" name="tab-group-"/>
                         <label htmlFor="tab-list">Список</label>
 
                         <div className="content">
