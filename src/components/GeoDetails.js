@@ -192,7 +192,7 @@ var GeoDetails = React.createClass({
                         </div>
                     </div>
                     <div className="tab">
-                        <input type="radio" id="tab-list" name="tab-group-"/>
+                        <input type="radio" id="tab-list" name="tab-group-list"/>
                         <label htmlFor="tab-list">Список</label>
 
                         <div className="content">
