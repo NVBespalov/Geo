@@ -95,18 +95,29 @@ var GeoObjectEditor = React.createClass({
      */
     _setMarkerFromLatLng: function (lat, lng) {
         if (!isNaN(parseInt(lat)) && !isNaN(parseInt(lng))) {
-            var {markers} = this.state;
             var mapCenter = new google.maps.LatLng(lat, lng);
-            markers = [{
-                position: mapCenter,
-                key: Date.now()
-            }];
+            var markers = [this._getMarkerFromLatLng(lat, lng)];
             this.setState({markers, mapCenter});
             this.refs.editorMap.panTo(mapCenter);
         }
 
     },
-
+    /**
+     * Get map marker from given lat & lng coordinates
+     * @param lat
+     * @param lng
+     * @private
+     * @returns {object/undefined}
+     */
+    _getMarkerFromLatLng: function (lat, lng) {
+        var marker;
+        if (!isNaN(parseInt(lat)) && !isNaN(parseInt(lng))) {
+            marker = {
+                position: new google.maps.LatLng(lat, lng)
+            };
+        }
+        return marker;
+    },
     /**
      * Editor map click handler
      * @param event
@@ -207,18 +218,18 @@ var GeoObjectEditor = React.createClass({
         var currentLongitude;
 
         stateObject[statePropertyName] = event.target.value;
-        this.setState(stateObject);
+
 
         if(statePropertyName === 'latitude'){
             currentLatitude = event.target.value;
-            currentLongitude =this.state.longitude;
+            currentLongitude = this.state.longitude;
         }
         if(statePropertyName === 'longitude') {
             currentLongitude = event.target.value;
             currentLatitude = this.state.latitude;
         }
-        //@TODO This should be done some how i don't know how
-        //this._setMarkerFromLatLng(currentLatitude, currentLongitude);
+        var marker = this._getMarkerFromLatLng(currentLatitude, currentLongitude);
+        this.setState(_.extend(stateObject, {markers:[marker]}));
     },
 
     componentDidMount: function () {
