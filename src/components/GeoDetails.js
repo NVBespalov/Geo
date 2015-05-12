@@ -164,8 +164,8 @@ var GeoDetails = React.createClass({
                             <GoogleMaps containerProps={{style: {height: "100%",width: "100%"}}}
                                         ref="map"
                                         googleMapsApi={google.maps}
-                                        zoom={4}
-                                        center={new google.maps.LatLng(-25.363882, 131.044922)}
+                                        zoom={2}
+                                        center={new google.maps.LatLng(0, 0)}
                                         >
                                 {this.state.markers.map(this._getMarkerComponent, this)}
                             </GoogleMaps>
