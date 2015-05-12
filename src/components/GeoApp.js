@@ -3,6 +3,7 @@
 var React = require('react/addons');
 var CategoriesStore = require('stores/CategoriesStore');
 var GeoObjectsStore = require('stores/GeoObjectsStore');
+var _ = require('underscore');
 
 require('normalize.css');
 require('../styles/main.css');
@@ -13,7 +14,9 @@ require('../styles/main.css');
 function getGeoState() {
     return {
         allCategories: CategoriesStore.getAllCategories() || [],
-        allGeoObjects: GeoObjectsStore.getAllGeoObjects() || []
+        allGeoObjects: GeoObjectsStore.getAllGeoObjects() || [],
+        selectedGeoObject: {},
+        selectedGeoObjectZoom: 2
     };
 }
 
@@ -33,8 +36,14 @@ var GeoApp = React.createClass({
         GeoObjectsStore.removeChangeListener(this._onChange);
     },
 
-    _listSelectGeoObjectHandler: function () {
-
+    /**
+     * Object categories selected handler
+     * @param  event
+     * @private
+     */
+    _listSelectGeoObjectHandler: function (event) {
+        var selectedGeoObject = _.findWhere(this.state.allGeoObjects, {id: +event.target.getAttribute('data')});
+        this.setState({selectedGeoObject, selectedGeoObjectZoom:8});
     },
 
     render: function () {
@@ -42,7 +51,7 @@ var GeoApp = React.createClass({
         <div id="wrap">
             <h1> Картографический сервис </h1>
             <GeoList selectGeoObjectHandler={this._listSelectGeoObjectHandler} categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
-            <GeoDetails categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
+            <GeoDetails zoomLevel={this.state.selectedGeoObjectZoom} geoObject={this.state.selectedGeoObject} categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
         </div>
         );
     },

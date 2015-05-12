@@ -123,7 +123,10 @@ var GeoDetails = React.createClass({
         return {
             geoObject: {},
             geoEditorIsVisible: false,
-            markers: []
+            markers: [],
+            mapZoomLevel: 2,
+            mapCenter: new google.maps.LatLng(0, 0)
+
         };
     },
     getGeoObjectEditor: function () {
@@ -137,6 +140,16 @@ var GeoDetails = React.createClass({
                 addNewObjectHandler={this._addNewObjectHandler}/>
             );
         }
+    },
+    componentWillReceiveProps: function(nextProps) {
+        var geoObject = nextProps.geoObject;
+        var mapZoomLevel = this.state.mapZoomLevel;
+        var mapCenter = this.state.mapCenter;
+        if(geoObject.name) {
+            mapCenter = new google.maps.LatLng(geoObject.latitude, geoObject.longitude);
+            mapZoomLevel = nextProps.zoomLevel;
+        }
+        this.setState({geoObject, mapCenter, mapZoomLevel});
     },
     componentDidMount: function () {
         var markers = [];
@@ -152,7 +165,6 @@ var GeoDetails = React.createClass({
     },
 
     render: function () {
-
         return (
             <div className="right_col">
                 <div className="tabs">
@@ -164,8 +176,8 @@ var GeoDetails = React.createClass({
                             <GoogleMaps containerProps={{style: {height: "100%",width: "100%"}}}
                                         ref="map"
                                         googleMapsApi={google.maps}
-                                        zoom={2}
-                                        center={new google.maps.LatLng(0, 0)}
+                                        zoom={this.state.mapZoomLevel}
+                                        center={this.state.mapCenter}
                                         >
                                 {this.state.markers.map(this._getMarkerComponent, this)}
                             </GoogleMaps>
