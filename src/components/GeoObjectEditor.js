@@ -96,12 +96,13 @@ var GeoObjectEditor = React.createClass({
     _setMarkerFromLatLng: function (lat, lng) {
         if (!isNaN(parseInt(lat)) && !isNaN(parseInt(lng))) {
             var {markers} = this.state;
+            var mapCenter = new google.maps.LatLng(lat, lng);
             markers = [{
-                position: new google.maps.LatLng(lat, lng),
+                position: mapCenter,
                 key: Date.now()
             }];
-            this.setState({markers});
-            this.refs.editorMap.panTo(new google.maps.LatLng(lat, lng));
+            this.setState({markers, mapCenter});
+            this.refs.editorMap.panTo(mapCenter);
         }
 
     },
