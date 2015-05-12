@@ -19,7 +19,8 @@ var GeoObjectsTable = React.createClass({
                 {key:"latitude", label:"Широта"},
                 {key:"longitude", label:"Долгота"},
                 {key:"category", label:"Категория"}
-            ]
+            ],
+            itemsPerPage:25
         };
     },
     /**
@@ -103,7 +104,7 @@ var GeoObjectsTable = React.createClass({
 
     render: function () {
         return (
-            <Table className="geoTable">{this._getTableContent()}</Table>
+            <Table itemsPerPage={this.state.itemsPerPage} className="geoTable">{this._getTableContent()}</Table>
         );
     }
 });
