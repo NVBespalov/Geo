@@ -32,11 +32,16 @@ var GeoApp = React.createClass({
         CategoriesStore.removeChangeListener(this._onChange);
         GeoObjectsStore.removeChangeListener(this._onChange);
     },
+
+    _listSelectGeoObjectHandler: function () {
+
+    },
+
     render: function () {
         return (
         <div id="wrap">
             <h1> Картографический сервис </h1>
-            <GeoList categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
+            <GeoList selectGeoObjectHandler={this._listSelectGeoObjectHandler} categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
             <GeoDetails categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
         </div>
         );

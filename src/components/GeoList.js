@@ -20,7 +20,14 @@ function getCategoriesWithGeoObjects (categories, geoObjects) {
 }
 
 var GeoList = React.createClass({
-
+    /**
+     * Select object from tree handler
+     * @param event
+     * @private
+     */
+    _onGeoObjectClick: function (event) {
+        this.props.selectGeoObjectHandler(event);
+    },
     render: function () {
         return (
 
@@ -40,9 +47,16 @@ var GeoList = React.createClass({
                                     <TreeView key={type + '|' + index} nodeLabel={label} defaultCollapsed={false}>
                                         {node.geoObjects.map(function(geoObject) {
                                             return (
-                                                <p key={'_' + Math.random().toString(36).substr(2, 9)}><a key={'_' + Math.random().toString(36).substr(2, 9)} className="node" href="#">{geoObject.name}</a></p>
+                                                <p key={'_' + Math.random().toString(36).substr(2, 9)}>
+                                                    <a
+                                                        key={'_' + Math.random().toString(36).substr(2, 9)}
+                                                        className="node" href="#"
+                                                        onClick={this._onGeoObjectClick} data={geoObject.id}>
+                                                        {geoObject.name}
+                                                    </a>
+                                                </p>
                                             );
-                                        })}
+                                        },this)}
                                     </TreeView>
                                 );
                             }, this)}
