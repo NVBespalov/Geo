@@ -78,10 +78,52 @@ var GeoDetails = React.createClass({
     _addNewObjectHandler: function () {
         this.setState({geoObject:{}, geoEditorIsVisible:false});
     },
+    /**
+     * Get map marker from given lat & lng coordinates
+     * @param lat
+     * @param lng
+     * @private
+     * @returns {object/undefined}
+     */
+    _getMarkerFromLatLng: function (lat, lng) {
+        var marker;
+        if (!isNaN(parseInt(lat)) && !isNaN(parseInt(lng))) {
+            marker = {
+                position: new google.maps.LatLng(lat, lng),
+            };
+        }
+        return marker;
+    },
+    /**
+     * Get marker with marker raw data
+     * @param {object} marker The marker raw data
+     * @param {int} index
+     * @returns {XML}
+     * @private
+     */
+    _getMarkerComponent: function (marker, index) {
+        var pinColor = Math.floor(Math.random()*16777215).toString(16);
+        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0,0),
+            new google.maps.Point(10, 34));
+        //var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
+        //    new google.maps.Size(40, 37),
+        //    new google.maps.Point(0, 0),
+        //    new google.maps.Point(12, 35));
+        return (
+            <Marker position={marker.position}
+                    key={marker.key}
+                    icon={pinImage}
+                />
+        );
+    },
+
     getInitialState: function() {
         return {
             geoObject: {},
-            geoEditorIsVisible: false
+            geoEditorIsVisible: false,
+            markers: []
         };
     },
     getGeoObjectEditor: function () {
@@ -96,6 +138,19 @@ var GeoDetails = React.createClass({
             );
         }
     },
+    componentDidMount: function () {
+        var markers = [];
+        var marker;
+        _.each(this.props.geoObjects, function (geoObject, index) {
+            marker = this._getMarkerFromLatLng(geoObject.latitude, geoObject.longitude);
+            if (marker) {
+                marker.key = index;
+                markers.push(marker);
+            }
+        }, this);
+        this.setState({markers});
+    },
+
     render: function () {
 
         return (
@@ -111,7 +166,9 @@ var GeoDetails = React.createClass({
                                         googleMapsApi={google.maps}
                                         zoom={4}
                                         center={new google.maps.LatLng(-25.363882, 131.044922)}
-                                        />
+                                        >
+                                {this.state.markers.map(this._getMarkerComponent, this)}
+                            </GoogleMaps>
 
                         </div>
                     </div>
