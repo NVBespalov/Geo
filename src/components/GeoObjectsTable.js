@@ -58,7 +58,7 @@ var GeoObjectsTable = React.createClass({
     _getTableContentActionColumns: function (geoObject) {
         return [
             <Td key={'_' + Math.random().toString(36).substr(2, 9)} column="Карта" >
-                <a key={'_' + Math.random().toString(36).substr(2, 9)} href="#" onClick={this._onShowObjectOnMapClickHandler}>на карте</a>
+                <a data={geoObject.id} key={'_' + Math.random().toString(36).substr(2, 9)} href="#" onClick={this._onShowObjectOnMapClickHandler}>на карте</a>
             </Td>,
             <Td key={'_' + Math.random().toString(36).substr(2, 9)} column="Действия">
                 <b key={'_' + Math.random().toString(36).substr(2, 9)}>
