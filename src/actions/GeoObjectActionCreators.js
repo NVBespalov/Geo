@@ -5,6 +5,7 @@ var GeoObjectActionCreators = {
 
     /**
      * Add one geo object with raw data
+     * @TODO refactor This should be refactored in order to reduce responsibilities
      * @param {object} geoObjectRawData The raw data that describes geo object
      * @param oldObject
      */
@@ -17,13 +18,11 @@ var GeoObjectActionCreators = {
                 oldRawData: oldObject
             });
         } else {
-            var objectToStore =  _.extend(geoObjectRawData, {id: Date.now()});
             GeoAppDispatcher.dispatch({
                 actionType: GeoAppActionsConstants.GEO_OBJECTS_CREATE,
-                rawData: objectToStore
+                rawData: geoObjectRawData
             });
         }
-
     },
 
     /**

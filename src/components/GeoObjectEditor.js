@@ -21,6 +21,7 @@ function getEmptyObjectState() {
         category: 'Без категории',
         latitude: '',
         longitude: '',
+        id: Date.now(),
         name: ''
     };
 }
@@ -145,7 +146,8 @@ var GeoObjectEditor = React.createClass({
             address: this.state.address,
             latitude: this.state.latitude,
             longitude: this.state.longitude,
-            category: this.state.category
+            category: this.state.category,
+            id: this.state.id
         }, this.props.geoObject);
         this.setState(getEmptyObjectState());
         event.preventDefault();
