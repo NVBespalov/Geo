@@ -168,7 +168,13 @@ var GeoDetails = React.createClass({
      * @param event
      */
     showObjectOnMapClickHandler: function (event) {
-
+        this.refs.tabMap.getDOMNode().checked = true;
+        var geoObject = _.findWhere(this.props.geoObjects,{id:+event.target.getAttribute('data')});
+        this.setState({
+            geoObject: geoObject,
+            mapZoomLevel: 6,
+            mapCenter: new google.maps.LatLng(geoObject.latitude, geoObject.longitude)
+        });
     },
 
     render: function () {
@@ -176,7 +182,7 @@ var GeoDetails = React.createClass({
             <div className="right_col">
                 <div className="tabs">
                     <div className="tab">
-                        <input type="radio" id="tab-map" name="tab-group-2" defaultChecked/>
+                        <input ref="tabMap" type="radio" id="tab-map" name="tab-group-2" defaultChecked/>
                         <label htmlFor="tab-map">Карта</label>
 
                         <div className="content">
