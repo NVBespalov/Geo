@@ -42,6 +42,14 @@ var GeoObjectsTable = React.createClass({
     },
 
     /**
+     * Show go object on the map click handler
+     * @param event
+     * @private
+     */
+    _onShowObjectOnMapClickHandler: function (event) {
+        this.props.showObjectOnMapClickHandler(event);
+    },
+    /**
      * The action columns to show on the map or delete geo object
      * @param geoObject
      * @returns {XML[]}
@@ -50,7 +58,7 @@ var GeoObjectsTable = React.createClass({
     _getTableContentActionColumns: function (geoObject) {
         return [
             <Td key={'_' + Math.random().toString(36).substr(2, 9)} column="Карта" >
-                <a key={'_' + Math.random().toString(36).substr(2, 9)} href="#">на карте</a>
+                <a key={'_' + Math.random().toString(36).substr(2, 9)} href="#" onClick={this._onShowObjectOnMapClickHandler}>на карте</a>
             </Td>,
             <Td key={'_' + Math.random().toString(36).substr(2, 9)} column="Действия">
                 <b key={'_' + Math.random().toString(36).substr(2, 9)}>

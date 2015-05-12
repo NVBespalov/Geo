@@ -163,6 +163,14 @@ var GeoDetails = React.createClass({
         this.setState({markers});
     },
 
+    /**
+     * Show object on map click handler
+     * @param event
+     */
+    showObjectOnMapClickHandler: function (event) {
+
+    },
+
     render: function () {
         return (
             <div className="right_col">
@@ -193,7 +201,7 @@ var GeoDetails = React.createClass({
                                 <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
                             </p>
 
-                            <GeoListTable geoObjects={this.props.geoObjects} editObjectHandler={this._editObjectHandler}/>
+                            <GeoListTable showObjectOnMapClickHandler={this.showObjectOnMapClickHandler} geoObjects={this.props.geoObjects} editObjectHandler={this._editObjectHandler}/>
 
                         </div>
                     </div>
