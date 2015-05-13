@@ -94,6 +94,7 @@ var GeoList = React.createClass({
                                 <input onChange={this._searchFieldChangedHandler} name="q" type="text" size="40" placeholder="Собор" />
                             </form>
                             <ul className="searchResults">
+                                <h3>Результаты:</h3>
                                 {this.state.searchResults.map(function (geoObject, index) {
                                     return (<a onClick={this._onGeoObjectClick} href="#" key={index} ><li data={geoObject.id} key={index+1}>{geoObject.name}</li></a>);
                                 }, this)}
