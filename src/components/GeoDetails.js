@@ -190,6 +190,14 @@ var GeoDetails = React.createClass({
         return markers;
     },
 
+    /**
+     * Clear selected geo object on tab changed
+     * @private
+     */
+    _clearSelectedObject: function () {
+        this.setState({geoObject:{}});
+    },
+
     render: function () {
         return (
             <div className="right_col">
@@ -211,7 +219,7 @@ var GeoDetails = React.createClass({
                         </div>
                     </div>
                     <div className="tab">
-                        <input type="radio" id="tab-list" name="tab-group-2"/>
+                        <input type="radio" id="tab-list" name="tab-group-2" onChange={this._clearSelectedObject}/>
                         <label htmlFor="tab-list">Список</label>
 
                         <div className="content">
