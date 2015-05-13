@@ -229,7 +229,10 @@ var GeoObjectEditor = React.createClass({
             currentLatitude = this.state.latitude;
         }
         var marker = this._getMarkerFromLatLng(currentLatitude, currentLongitude);
-        this.setState(_.extend(stateObject, {markers:[marker]}));
+        if (marker) {
+            stateObject = _.extend(stateObject, {markers:[marker]});
+        }
+        this.setState(stateObject);
     },
 
     componentDidMount: function () {

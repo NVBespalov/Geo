@@ -179,7 +179,8 @@ var GeoDetails = React.createClass({
 
     render: function () {
         return (
-            <div className="right_col">
+            <div className="col1">
+
                 <div className="tabs">
                     <div className="tab">
                         <input ref="tabMap" type="radio" id="tab-map" name="tab-group-2" defaultChecked/>

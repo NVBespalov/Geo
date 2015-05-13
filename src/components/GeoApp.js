@@ -23,15 +23,15 @@ function getGeoState() {
 var GeoList = require('components/GeoList');
 var GeoDetails = require('components/GeoDetails');
 var GeoApp = React.createClass({
-    getInitialState: function() {
+    getInitialState: function () {
         return getGeoState();
     },
-    componentDidMount: function() {
+    componentDidMount: function () {
         CategoriesStore.addChangeListener(this._onChange);
         GeoObjectsStore.addChangeListener(this._onChange);
     },
 
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         CategoriesStore.removeChangeListener(this._onChange);
         GeoObjectsStore.removeChangeListener(this._onChange);
     },
@@ -43,19 +43,27 @@ var GeoApp = React.createClass({
      */
     _listSelectGeoObjectHandler: function (event) {
         var selectedGeoObject = _.findWhere(this.state.allGeoObjects, {id: +event.target.getAttribute('data')});
-        this.setState({selectedGeoObject, selectedGeoObjectZoom:8});
+        this.setState({selectedGeoObject, selectedGeoObjectZoom: 8});
     },
 
     render: function () {
         return (
-        <div id="wrap">
-            <h1> Картографический сервис </h1>
-            <GeoList selectGeoObjectHandler={this._listSelectGeoObjectHandler} categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
-            <GeoDetails zoomLevel={this.state.selectedGeoObjectZoom} geoObject={this.state.selectedGeoObject} categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
-        </div>
+            <div className = "wrap">
+                <h1> Картографический сервис </h1>
+                <div className="colmask leftmenu">
+                    <div className="colleft">
+
+
+                        <GeoDetails zoomLevel={this.state.selectedGeoObjectZoom} geoObject={this.state.selectedGeoObject}
+                                    categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
+                        <GeoList selectGeoObjectHandler={this._listSelectGeoObjectHandler}
+                                 categories={this.state.allCategories} geoObjects={this.state.allGeoObjects}/>
+                    </div>
+                </div>
+            </div>
         );
     },
-    _onChange: function() {
+    _onChange: function () {
         this.setState(getGeoState());
     }
 });

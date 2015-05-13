@@ -31,7 +31,7 @@ var GeoList = React.createClass({
     render: function () {
         return (
 
-            <div className="left_col">
+            <div className="col2">
 
                 <div className="tabs">
 
