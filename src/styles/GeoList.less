@@ -69,3 +69,27 @@
     -ms-transform: rotate(-90deg);
     transform: rotate(-90deg);
 }
+#search input[type="text"] {
+    background: url(../images/search-dark.png) no-repeat 10px 6px;
+    border: 1px solid black;
+    font: bold 12px Arial,Helvetica,Sans-serif;
+    width:150px;
+    padding: 6px 15px 6px 35px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-transition: all 0.7s ease 0s;
+    -moz-transition: all 0.7s ease 0s;
+    -o-transition: all 0.7s ease 0s;
+    transition: all 0.7s ease 0s;
+}
+
+#search input[type="text"]:focus {
+    background: url(../images/search-dark.png) no-repeat 10px 6px;
+    color: #6a6f75;
+    width: 200px;
+
+}
+.searchResults {
+    list-style-type: none;
+}

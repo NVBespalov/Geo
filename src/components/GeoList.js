@@ -6,13 +6,13 @@ var _ = require('underscore');
 
 require('styles/GeoList.less');
 
-function getCategoriesWithGeoObjects (categories, geoObjects) {
+function getCategoriesWithGeoObjects(categories, geoObjects) {
     var categoriesWithObjects = [];
     _.each(categories, function (value) {
         categoriesWithObjects.push({
             name: value,
             collapsed: false,
-            geoObjects: _.where(geoObjects, {category:value})
+            geoObjects: _.where(geoObjects, {category: value})
         });
     });
     return categoriesWithObjects;
@@ -28,6 +28,28 @@ var GeoList = React.createClass({
     _onGeoObjectClick: function (event) {
         this.props.selectGeoObjectHandler(event);
     },
+
+    /**
+     * Search field handler
+     * @param event
+     * @private
+     */
+    _searchFieldChangedHandler: function (event) {
+        if (event.target.value) {
+            var searchResults = _.filter(this.props.geoObjects, function (item) {
+                return item.name.indexOf(event.target.value) > -1;
+            });
+            if (searchResults) {
+                this.setState({searchResults});
+            }
+        }
+    },
+
+    getInitialState: function() {
+        return {
+            searchResults: []
+        };
+    },
     render: function () {
         return (
 
@@ -40,12 +62,12 @@ var GeoList = React.createClass({
                         <label htmlFor="tab-categories">Категории</label>
 
                         <div className="content">
-                            {getCategoriesWithGeoObjects(this.props.categories, this.props.geoObjects).map(function(node, index) {
+                            {getCategoriesWithGeoObjects(this.props.categories, this.props.geoObjects).map(function (node, index) {
                                 var type = node.name;
                                 var label = <span className="node">{type}</span>;
                                 return (
                                     <TreeView key={type + '|' + index} nodeLabel={label} defaultCollapsed={false}>
-                                        {node.geoObjects.map(function(geoObject) {
+                                        {node.geoObjects.map(function (geoObject) {
                                             return (
                                                 <p key={'_' + Math.random().toString(36).substr(2, 9)}>
                                                     <a
@@ -56,10 +78,10 @@ var GeoList = React.createClass({
                                                     </a>
                                                 </p>
                                             );
-                                        },this)}
+                                        }, this)}
                                     </TreeView>
                                 );
-                            }, this)}
+                            },this)}
                         </div>
                     </div>
 
@@ -68,8 +90,16 @@ var GeoList = React.createClass({
                         <label htmlFor="tab-search">Поиск</label>
 
                         <div className="content">
-                            stuff
+                            <form id="search">
+                                <input onChange={this._searchFieldChangedHandler} name="q" type="text" size="40" placeholder="Собор" />
+                            </form>
+                            <ul className="searchResults">
+                                {this.state.searchResults.map(function (geoObject, index) {
+                                    return (<a onClick={this._onGeoObjectClick} href="#" key={index} ><li data={geoObject.id} key={index+1}>{geoObject.name}</li></a>);
+                                }, this)}
+                            </ul>
                         </div>
+
                     </div>
 
 
