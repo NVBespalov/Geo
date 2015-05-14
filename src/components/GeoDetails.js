@@ -48,7 +48,7 @@ var GeoDetails = React.createClass({
      * @param event
      */
     showGeoObjectFormObject: function (event) {
-        this.setState({geoEditorIsVisible:true});
+        this.setState({geoEditorIsVisible: true});
         event.preventDefault();
     },
 
@@ -59,8 +59,8 @@ var GeoDetails = React.createClass({
      */
     _editObjectHandler: function (event) {
         this.setState({
-            geoObject:_.findWhere(this.props.geoObjects,{id:+event.target.getAttribute('data')}),
-            geoEditorIsVisible:true
+            geoObject: _.findWhere(this.props.geoObjects, {id: +event.target.getAttribute('data')}),
+            geoEditorIsVisible: true
         });
     },
 
@@ -69,14 +69,14 @@ var GeoDetails = React.createClass({
      * @private
      */
     _cancelObjectEditHandler: function () {
-        this.setState({geoObject:{}, geoEditorIsVisible:false});
+        this.setState({geoObject: {}, geoEditorIsVisible: false});
     },
     /**
      * Add one object handler
      * @private
      */
     _addNewObjectHandler: function () {
-        this.setState({geoObject:{}, geoEditorIsVisible:false});
+        this.setState({geoObject: {}, geoEditorIsVisible: false});
     },
     /**
      * Get map marker from given lat & lng coordinates
@@ -101,10 +101,10 @@ var GeoDetails = React.createClass({
      * @private
      */
     _getMarkerComponent: function (marker) {
-        var pinColor = Math.floor(Math.random()*16777215).toString(16);
+        var pinColor = Math.floor(Math.random() * 16777215).toString(16);
         var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
             new google.maps.Size(21, 34),
-            new google.maps.Point(0,0),
+            new google.maps.Point(0, 0),
             new google.maps.Point(10, 34));
         //var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
         //    new google.maps.Size(40, 37),
@@ -118,7 +118,7 @@ var GeoDetails = React.createClass({
         );
     },
 
-    getInitialState: function() {
+    getInitialState: function () {
         return {
             geoObject: {},
             geoEditorIsVisible: false,
@@ -129,8 +129,8 @@ var GeoDetails = React.createClass({
         };
     },
     getGeoObjectEditor: function () {
-        if(this.state.geoEditorIsVisible){
-            return(<GeoObjectEditor
+        if (this.state.geoEditorIsVisible) {
+            return (<GeoObjectEditor
                 ref="geoObjectEditor"
                 isVisible={this.state.geoEditorIsVisible}
                 categories={this.props.categories}
@@ -140,11 +140,11 @@ var GeoDetails = React.createClass({
             );
         }
     },
-    componentWillReceiveProps: function(nextProps) {
+    componentWillReceiveProps: function (nextProps) {
         var geoObject = nextProps.geoObject;
         var mapZoomLevel = this.state.mapZoomLevel;
         var mapCenter = this.state.mapCenter;
-        if(geoObject.name) {
+        if (geoObject.name) {
             mapCenter = new google.maps.LatLng(geoObject.latitude, geoObject.longitude);
             mapZoomLevel = nextProps.zoomLevel;
         }
@@ -160,7 +160,7 @@ var GeoDetails = React.createClass({
      */
     showObjectOnMapClickHandler: function (event) {
         this.refs.tabMap.getDOMNode().checked = true;
-        var geoObject = _.findWhere(this.props.geoObjects,{id:+event.target.getAttribute('data')});
+        var geoObject = _.findWhere(this.props.geoObjects, {id: +event.target.getAttribute('data')});
         this.setState({
             geoObject: geoObject,
             mapZoomLevel: 6,
@@ -174,13 +174,13 @@ var GeoDetails = React.createClass({
      * @private
      */
     _onCategoryLayerSelected: function (event) {
-        this.setState({selectedLayer:event.target.value});
+        this.setState({selectedLayer: event.target.value});
     },
     _getMarkers: function () {
         var markers = [];
         var marker;
         var selectedLayer = this.state.selectedLayer || _.first(this.props.categories);
-        _.each(_.where(this.props.geoObjects,{category:selectedLayer}), function (geoObject, index) {
+        _.each(_.where(this.props.geoObjects, {category: selectedLayer}), function (geoObject, index) {
             marker = this._getMarkerFromLatLng(geoObject.latitude, geoObject.longitude);
             if (marker) {
                 marker.key = index;
@@ -195,7 +195,7 @@ var GeoDetails = React.createClass({
      * @private
      */
     _clearSelectedObject: function () {
-        this.setState({geoObject:{}});
+        this.setState({geoObject: {}});
     },
 
     render: function () {
@@ -203,42 +203,39 @@ var GeoDetails = React.createClass({
             <div className="col1">
 
                 <div className="tabs">
-                    <div className="tab">
-                        <input ref="tabMap" type="radio" id="tab-map" name="tab-group-2" defaultChecked/>
-                        <label htmlFor="tab-map">Карта</label>
+                    <input ref="tabMap" id="tab1" type="radio" name="tabs-details" defaultChecked/>
+                    <label htmlFor="tab1" title="Карта">Карта</label>
 
-                        <div className="content">
-                            <GoogleMaps containerProps={{style: {height: "100%",width: "100%"}}}
-                                        ref="map"
-                                        googleMapsApi={google.maps}
-                                        zoom={this.state.mapZoomLevel}
-                                        center={this.state.mapCenter}
-                                        >
-                                {this._getMarkers()}
-                            </GoogleMaps>
+                    <input id="tab2" type="radio" name="tabs-details"/>
+                    <label htmlFor="tab2" title="Поиск"  onChange={this._clearSelectedObject}>Поиск</label>
 
-                        </div>
-                    </div>
-                    <div className="tab">
-                        <input type="radio" id="tab-list" name="tab-group-2" onChange={this._clearSelectedObject}/>
-                        <label htmlFor="tab-list">Список</label>
+                    <section id="content1">
+                        <GoogleMaps containerProps={{style: {height: "700px",width: "100%"}}}
+                                    ref="map"
+                                    googleMapsApi={google.maps}
+                                    zoom={this.state.mapZoomLevel}
+                                    center={this.state.mapCenter}
+                            >
+                            {this._getMarkers()}
+                        </GoogleMaps>
+                        <form>
+                            <select onChange={this._onCategoryLayerSelected}>
+                                {this.props.categories.map(function (category) {
+                                    return (<option key={category}>{category}</option>);
+                                })}
+                            </select>
+                        </form>
+                    </section>
+                    <section id="content2">
+                        <p className="categoriesListControls">
+                            <a onClick={this.handlePromptNewCategory} href="#">Новая категория</a>
+                            <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
+                        </p>
 
-                        <div className="content">
-                            <p className="categoriesListControls">
-                                <a onClick={this.handlePromptNewCategory} href="#">Новая категория</a>
-                                <a onClick={this.showGeoObjectFormObject} href="#">Новый объект</a>
-                            </p>
+                        <GeoListTable showObjectOnMapClickHandler={this.showObjectOnMapClickHandler}
+                                      geoObjects={this.props.geoObjects} editObjectHandler={this._editObjectHandler}/>
 
-                            <GeoListTable showObjectOnMapClickHandler={this.showObjectOnMapClickHandler} geoObjects={this.props.geoObjects} editObjectHandler={this._editObjectHandler}/>
-                            <form>
-                                <select onChange={this._onCategoryLayerSelected}>
-                                    {this.props.categories.map(function (category) {
-                                        return (<option key={category}>{category}</option>);
-                                    })}
-                                </select>
-                            </form>
-                        </div>
-                    </div>
+                    </section>
                 </div>
                 <Modal visible={false} closable={true} ref="addCategoryModalForm">
                     <header>
@@ -252,7 +249,8 @@ var GeoDetails = React.createClass({
                             </tr>
                             <tr>
                                 <td align="right" colSpan="2">
-                                    <input type="button" value="Создать категорию" onClick={this.onAddNewCategoryPrompt}/>
+                                    <input type="button" value="Создать категорию"
+                                           onClick={this.onAddNewCategoryPrompt}/>
                                     <input type="button" value="Отмена" onClick={this.onCancelNewCategory}/>
                                 </td>
                             </tr>
@@ -262,6 +260,7 @@ var GeoDetails = React.createClass({
                 </Modal>
                 {this.getGeoObjectEditor()}
             </div>
+
         );
     }
 });

@@ -85,42 +85,82 @@ img {
     left:6%;			/* (right column left and right padding) plus (left column left padding) */
 }
 
+
 .tabs {
-    position: relative;
-    min-height: 900px;
-    clear: both;
-    margin: 25px 0;
+    min-width: 320px;
+    max-width: 1200px;
+    padding: 0;
+    margin: 0 auto;
+
 }
-.tab {
-    float: left;
+/* Стили секций с содержанием */
+section {
+    display: none;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
 }
-.tab label {
-    background: #eee;
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-left: -1px;
-    position: relative;
-    left: 1px;
-}
-.tab [type=radio] {
+.tabs input {
     display: none;
 }
-.content {
-    position: absolute;
-    top: 28px;
-    left: 0;
-    background: white;
-    right: 0;
-    bottom: 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    height: 90%;
+/* Стили вкладок (табов) */
+.tabs label {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 25px;
+    font-weight: 600;
+    text-align: center;
+    color: #aaa;
+    border: 1px solid #ddd;
+    background: #f1f1f1;
+    border-radius: 3px 3px 0 0;
 }
-[type=radio]:checked ~ label {
-    background: white;
-    border-bottom: 1px solid white;
-    z-index: 2;
+.tabs label:before {
+    font-family: fontawesome, serif;
+    font-weight: normal;
+    margin-right: 10px;
 }
-[type=radio]:checked ~ label ~ .content {
-    z-index: 1;
+.tabs label[for*="1"]:before {
+    content: "\f19a";
+}
+.tabs label[for*="2"]:before {
+    content: "\f17a";
+}
+.tabs label[for*="3"]:before {
+    content: "\f13b";
+}
+.tabs label[for*="4"]:before {
+    content: "\f13c";
+}
+.tabs label:hover {
+    color: #888;
+    cursor: pointer;
+}
+.tabs input:checked + label {
+    color: #555;
+    border: 1px solid #ddd;
+    border-top: 1px solid #009933;
+    border-bottom: 1px solid #fff;
+    background: #fff;
+}
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+    display: block;
+}
+@media screen and (max-width: 680px) {
+    .tabs label {
+        font-size: 0;
+    }
+
+    .tabs label:before {
+        margin: 0;
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .tabs label {
+        padding: 15px;
+    }
 }
