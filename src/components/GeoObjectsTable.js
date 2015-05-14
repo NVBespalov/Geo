@@ -110,14 +110,28 @@ var GeoObjectsTable = React.createClass({
         return geoObjectTableContent;
     },
 
+    /**
+     * Slect count of pages per page handler
+     * @param event
+     * @private
+     */
+    _onPagesContSelectorChanged: function (event) {
+        this.setState({itemsPerPage:event.target.value});
+    },
+
     render: function () {
         return (
-            <div id="demo-table"><Table
-                itemsPerPage={this.state.itemsPerPage}
-                sortable={true}
-                >
-                {this._getTableContent()}
-            </Table></div>
+            <div id="demo-table">
+                <Table itemsPerPage={this.state.itemsPerPage} sortable={true}>
+                    {this._getTableContent()}
+                </Table>
+                <select id="pagesCountSelector" onChange={this._onPagesContSelectorChanged}>
+                    <option> 5 </option>
+                    <option> 10 </option>
+                    <option> 15 </option>
+                    <option> 20 </option>
+                </select>
+            </div>
         );
     }
 });
