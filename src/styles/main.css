@@ -53,12 +53,12 @@ img {
 .col3 {
     float:left;
     position:relative;
-    padding:0 0 1em 0;
+    padding:1em 0 1em 0;
     overflow:hidden;
 }
 /* 2 Column (left menu) settings */
 .leftmenu {
-    background:#fff;		/* right column background colour */
+    background:#f4f4f4;		/* right column background colour */
 }
 .leftmenu .colleft {
     right:75%;			/* right column width */
