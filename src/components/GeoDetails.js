@@ -94,6 +94,20 @@ var GeoDetails = React.createClass({
         }
         return marker;
     },
+
+    /**
+     * Generate hex color. Returns color without #
+     * @returns {string}
+     * @private
+     */
+    _getRandomColor: function () {
+        var generatedColor = Math.round(0xffffff * Math.random()).toString(16);
+        var generatedColorDelta = (6 - generatedColor.length);
+        var additionMask = "000000";
+        var missingPrefix = additionMask.substring(0, generatedColorDelta);
+        return missingPrefix + generatedColor;
+    },
+
     /**
      * Get marker with marker raw data
      * @param {object} marker The marker raw data
@@ -101,8 +115,7 @@ var GeoDetails = React.createClass({
      * @private
      */
     _getMarkerComponent: function (marker) {
-        var pinColor = Math.floor(Math.random() * 16777215).toString(16);
-        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + this._getRandomColor(),
             new google.maps.Size(21, 34),
             new google.maps.Point(0, 0),
             new google.maps.Point(10, 34));
