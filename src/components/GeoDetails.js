@@ -206,8 +206,8 @@ var GeoDetails = React.createClass({
                     <input ref="tabMap" id="tab1" type="radio" name="tabs-details" defaultChecked/>
                     <label htmlFor="tab1" title="Карта">Карта</label>
 
-                    <input id="tab2" type="radio" name="tabs-details"/>
-                    <label htmlFor="tab2" title="Поиск"  onChange={this._clearSelectedObject}>Поиск</label>
+                    <input id="tab2" type="radio" name="tabs-details" onChange={this._clearSelectedObject}/>
+                    <label htmlFor="tab2" title="Поиск">Поиск</label>
 
                     <section id="content1">
                         <GoogleMaps containerProps={{style: {height: "700px",width: "100%"}}}
@@ -219,7 +219,7 @@ var GeoDetails = React.createClass({
                             {this._getMarkers()}
                         </GoogleMaps>
                         <form>
-                            <select onChange={this._onCategoryLayerSelected}>
+                            <select id="layersSelector" onChange={this._onCategoryLayerSelected}>
                                 {this.props.categories.map(function (category) {
                                     return (<option key={category}>{category}</option>);
                                 })}
