@@ -81,7 +81,7 @@ var GeoObjectEditor = React.createClass({
         //    new google.maps.Point(12, 35));
         return (
             <Marker position={marker.position}
-                    key={marker.key}
+                    key={index}
                     onRightclick={this._handle_marker_rightClick.bind(this, index)}
                 //icon={pinImage}
                 />
@@ -241,7 +241,7 @@ var GeoObjectEditor = React.createClass({
     },
     render: function () {
         return (
-            <Modal visible={this.state.isVisible||this.props.isVisible} closable={this.state.closable} ref="addGeoObjectModalForm">
+            <Modal key="geoObjectEditor" visible={this.state.isVisible||this.props.isVisible} closable={this.state.closable} ref="addGeoObjectModalForm">
                 <header>
                     <h1>Новый объект</h1>
                 </header>
