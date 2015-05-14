@@ -84,7 +84,7 @@ var GeoObjectsTable = React.createClass({
             if (column) {
                 geoObjectTableContentColumns.push(
                     <Td key={'_' + Math.random().toString(36).substr(2, 9)} column={column.label} data={value}>
-                        <b key={'_' + Math.random().toString(36).substr(2, 9)}>{value}</b>
+                        {value}
                     </Td>
                 );
             }
@@ -112,7 +112,12 @@ var GeoObjectsTable = React.createClass({
 
     render: function () {
         return (
-            <Table itemsPerPage={this.state.itemsPerPage} className="geoTable">{this._getTableContent()}</Table>
+            <div id="demo-table"><Table
+                itemsPerPage={this.state.itemsPerPage}
+                sortable={true}
+                >
+                {this._getTableContent()}
+            </Table></div>
         );
     }
 });
