@@ -26,6 +26,7 @@ var GeoList = React.createClass({
      * @private
      */
     _onGeoObjectClick: function (event) {
+        debugger
         this.props.selectGeoObjectHandler(event);
     },
 
@@ -93,9 +94,9 @@ var GeoList = React.createClass({
                         <ul className="searchResults">
                             <h3>Результаты:</h3>
                             {this.state.searchResults.map(function (geoObject, index) {
-                                return (<a onClick={this._onGeoObjectClick} href="#" key={index}>
-                                    <li data={geoObject.id} key={index+1}>{geoObject.name}</li>
-                                </a>);
+                                return (<li  key={index+1}>
+                                <a data={geoObject.id} onClick={this._onGeoObjectClick} href="#" key={index} >{geoObject.name}</a>
+                                </li>);
                             }, this)}
                         </ul>
                     </section>

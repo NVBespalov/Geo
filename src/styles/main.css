@@ -88,7 +88,7 @@ section {
     background: #fff;
     border: 1px solid #ddd;
 }
-.tabs input {
+.tabs > input {
     display: none;
 }
 /* Стили вкладок (табов) */
