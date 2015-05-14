@@ -26,7 +26,6 @@ var GeoList = React.createClass({
      * @private
      */
     _onGeoObjectClick: function (event) {
-        debugger
         this.props.selectGeoObjectHandler(event);
     },
 
