@@ -31,19 +31,7 @@ p {
 img {
     margin:10px 0 5px;
 }
-#ads img {
-    display:block;
-    padding-top:10px;
-}
 
-#layoutdims {
-    clear:both;
-    background:#eee;
-    border-top:4px solid #000;
-    margin:0;
-    padding:6px 15px !important;
-    text-align:right;
-}
 /* column container */
 .colmask {
     position:relative;	/* This fixes the IE7 overflow hidden bug */
